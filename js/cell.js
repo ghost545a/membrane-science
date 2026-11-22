@@ -3,8 +3,15 @@
 // run to equilibrium with the measured D. Cl⁻ crosses the AEM, Na⁺ bounces.
 import { createStage, glass, T, reduceMotion } from "./stage.js";
 
-const el = document.getElementById("cell-stage");
-const S = el && createStage(el, { position: [1.8, 6.0, 16.5], target: [0, 2.0, 0], minDist: 6, maxDist: 26 });
+// Two copies: the full experiment in section 3, and a looping "ambient" one
+// in the hero (no controls, slow auto-rotate, no wheel zoom).
+function mount(el, ambient) {
+  if (!el) return;
+  const S = createStage(el, ambient
+    ? { position: [1.9, 4.8, 13.2], target: [0, 2.1, 0], minDist: 8, maxDist: 24, zoom: false, autoRotate: true }
+    : { position: [1.8, 6.0, 16.5], target: [0, 2.0, 0], minDist: 6, maxDist: 26 });
+  if (S) build(S, el, ambient);
+}
 
 // ---------------- Measured data (poster table) ----------------
 const DATA = [ // t (min), receiver µS/cm, receiver mmol/L, feed µS/cm
@@ -42,9 +49,10 @@ function stateAt(t) {
 const N = 240;
 const shownFrac = (cr) => (50 * (1 - Math.exp(-cr / 2.5))) / 100;
 
-if (S) build();
+mount(document.getElementById("hero-stage"), true);
+mount(document.getElementById("cell-stage"), false);
 
-function build() {
+function build(S, el, ambient) {
   const { THREE, scene, addLabel, onTick } = S;
 
   // ---------------- Glassware ----------------
@@ -151,11 +159,14 @@ function build() {
   // the jaws need a hole for the arm to look right: hide the jaw centre with a ring of glass flange already drawn
 
   // ---------------- Labels ----------------
-  addLabel(T.feed || "Feed", (v) => v.set(-BX, 5.45, 0));
-  addLabel(T.receiver || "Receiver", (v) => v.set(BX, 5.45, 0));
-  addLabel(T.membrane || "Membrane", (v) => v.set(0, ARM_Y + 1.75, 0));
-  addLabel(T.port || "Sample port", (v) => bottles[1].port.localToWorld(v.set(0, 1.35, 0)), "small");
-  addLabel(T.stirrer || "Stirrer", (v) => v.set(-BX + 0.9, 0.35, 1.2), "small");
+  // The hero copy shows no labels at all; the full one in section 3 does.
+  if (!ambient) addLabel(T.feed || "Feed", (v) => v.set(-BX, 5.45, 0));
+  if (!ambient) addLabel(T.receiver || "Receiver", (v) => v.set(BX, 5.45, 0));
+  if (!ambient) addLabel(T.membrane || "Membrane", (v) => v.set(0, ARM_Y + 1.75, 0));
+  if (!ambient) {
+    addLabel(T.port || "Sample port", (v) => bottles[1].port.localToWorld(v.set(0, 1.35, 0)), "small");
+    addLabel(T.stirrer || "Stirrer", (v) => v.set(-BX + 0.9, 0.35, 1.2), "small");
+  }
 
   // ---------------- Ions ----------------
   const sphere = new THREE.SphereGeometry(0.075, 14, 10);
@@ -207,21 +218,24 @@ function build() {
   let membraneGlow = 0;
 
   // ---------------- Timeline + UI ----------------
-  const playBtn = document.getElementById("cell-play");
-  const replayBtn = document.getElementById("cell-replay");
-  const scrub = document.getElementById("cell-scrub");
-  const out = document.getElementById("cell-time");
-  const phaseTag = document.getElementById("cell-phase");
-  const chartK = document.getElementById("cell-chart-k");
-  document.querySelectorAll("#project [data-k]").forEach((n) => { n.textContent = T[n.dataset.k] || n.textContent; });
-  replayBtn.textContent = T.replay || "Replay";
+  const $ = (id) => (ambient ? null : document.getElementById(id));
+  const playBtn = $("cell-play");
+  const replayBtn = $("cell-replay");
+  const scrub = $("cell-scrub");
+  const out = $("cell-time");
+  const phaseTag = el.querySelector(".phase-tag");
+  const chartK = $("cell-chart-k");
 
-  let t = 0, playing = false, started = false;
-  const setPlay = (p) => { playing = p; playBtn.textContent = p ? (T.pause || "Pause") : (T.play || "Play"); };
+  let t = 0, playing = false, started = false, hold = 0;
+  const setPlay = (p) => { playing = p; if (playBtn) playBtn.textContent = p ? (T.pause || "Pause") : (T.play || "Play"); };
+  if (!ambient) {
+    document.querySelectorAll("#project [data-k]").forEach((n) => { n.textContent = T[n.dataset.k] || n.textContent; });
+    replayBtn.textContent = T.replay || "Replay";
+    playBtn.addEventListener("click", () => { if (t >= END) restart(); setPlay(!playing); });
+    replayBtn.addEventListener("click", () => { restart(); setPlay(true); });
+    scrub.addEventListener("input", () => { t = (scrub.value / 1000) * END; sync(true); });
+  }
   setPlay(false);
-  playBtn.addEventListener("click", () => { if (t >= END) restart(); setPlay(!playing); });
-  replayBtn.addEventListener("click", () => { restart(); setPlay(true); });
-  scrub.addEventListener("input", () => { t = (scrub.value / 1000) * END; sync(true); });
   function restart() {
     t = 0;
     for (const i of cl) { i.side = -1; i.mode = 0; randomIn(-1, i.p); }
@@ -230,14 +244,14 @@ function build() {
   // Autoplay once the experiment scrolls into view.
   new IntersectionObserver(([e], o) => {
     if (e.isIntersecting && !started) { started = true; o.disconnect(); if (!reduceMotion) setPlay(true); }
-  }, { threshold: 0.5 }).observe(el);
+  }, { threshold: ambient ? 0.2 : 0.5 }).observe(el);
 
   // ---------------- Readouts + chart ----------------
-  const r = { cond: document.getElementById("r-cond"), conc: document.getElementById("r-conc"), s: document.getElementById("r-s"), eta: document.getElementById("r-eta"), feed: document.getElementById("r-feed") };
+  const r = ambient ? {} : { cond: document.getElementById("r-cond"), conc: document.getElementById("r-conc"), s: document.getElementById("r-s"), eta: document.getElementById("r-eta"), feed: document.getElementById("r-feed") };
   const fmtCond = (x) => (x >= 1000 ? `${(x / 1000).toFixed(2)} <small>mS/cm</small>` : `${x.toFixed(1)} <small>µS/cm</small>`);
   const fmtConc = (x) => (x >= 10 ? `${x.toFixed(1)}` : `${x.toFixed(3)}`) + " <small>mmol/L</small>";
-  const canvas = document.getElementById("cell-chart");
-  const ctx = canvas.getContext("2d");
+  const canvas = $("cell-chart");
+  const ctx = canvas && canvas.getContext("2d");
   let lastHypo = null;
 
   function drawChart(st) {
@@ -281,6 +295,14 @@ function build() {
 
   function updateHud() {
     const st = stateAt(t);
+    if (ambient) {
+      if (phaseTag && st.hypo !== lastHypo) {
+        lastHypo = st.hypo;
+        phaseTag.textContent = st.hypo ? T.phaseB || "Hypothetical" : T.phaseA || "Real data";
+        phaseTag.classList.toggle("hypo", st.hypo);
+      }
+      return st;
+    }
     out.textContent = st.label;
     scrub.value = String(Math.round((t / END) * 1000));
     r.cond.innerHTML = fmtCond(st.condR);
@@ -355,8 +377,13 @@ function build() {
     const running = playing && t < END;
     if (running) {
       t = Math.min(END, t + raw);
-      if (t >= END) setPlay(false);
+      if (t >= END && !ambient) setPlay(false);
       sync(false);
+    }
+    // The hero copy loops: hold the equilibrium for a moment, then start again.
+    if (ambient && playing && t >= END) {
+      hold += raw;
+      if (hold > 2.5) { hold = 0; restart(); sync(true); }
     }
     const swirl = reduceMotion ? 0.15 : 0.6;
     for (const b of bottles) b.barPivot.rotation.y += dt * (reduceMotion ? 1 : 9);

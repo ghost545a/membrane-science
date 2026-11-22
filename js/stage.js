@@ -15,7 +15,7 @@ export function webglOK() {
   } catch (e) { return false; }
 }
 
-export function createStage(el, { fov = 35, position = [0, 4, 12], target = [0, 0, 0], minDist = 4, maxDist = 30 } = {}) {
+export function createStage(el, { fov = 35, position = [0, 4, 12], target = [0, 0, 0], minDist = 4, maxDist = 30, zoom = true, autoRotate = false } = {}) {
   const hint = el.querySelector(".stage-hint");
   if (hint) hint.textContent = T.hint || "";
   if (!webglOK()) {
@@ -43,6 +43,9 @@ export function createStage(el, { fov = 35, position = [0, 4, 12], target = [0, 
   controls.maxDistance = maxDist;
   controls.maxPolarAngle = Math.PI * 0.49;
   controls.enablePan = false;
+  controls.enableZoom = zoom;
+  controls.autoRotate = autoRotate && !reduceMotion;
+  controls.autoRotateSpeed = 0.5;
   const baseOffset = camera.position.clone().sub(controls.target);
 
   // Soft studio light: sky/ground fill plus one key light with shadows.
