@@ -302,7 +302,7 @@ figcaption { margin-top: 10px; font-size: 0.88rem; color: var(--text-2); max-wid
 .stage-hero { aspect-ratio: 16 / 9; min-height: 240px; }
 .hero-sim .legend { margin-top: 12px; flex-wrap: wrap; align-items: center; }
 .hero-sim .legend a { margin-inline-start: auto; font-size: 0.85rem; }
-@media (min-width: 960px) {
+@media (min-width: 760px) {
   .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 48px; }
   .hero .lede, .hero .credit { max-width: 32rem; }
   .stage-hero { aspect-ratio: 4 / 3; }
