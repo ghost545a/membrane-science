@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Membrane Science by Mohammed Anwar Mahram</title>
+<meta name="description" content="An introduction to membrane science, a 3D simulation of our chloride-transport experiment on a Fumasep FAA-3-PK-75 anion exchange membrane, and blue energy by reverse electrodialysis.">
+<meta name="author" content="Mohammed Anwar Mahram">
+<meta property="og:title" content="Membrane Science by Mohammed Anwar Mahram">
+<meta property="og:description" content="An introduction to membrane science, a 3D simulation of our chloride-transport experiment on a Fumasep FAA-3-PK-75 anion exchange membrane, and blue energy by reverse electrodialysis.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ghost545a.github.io/membrane-science/">
+<meta property="og:image" content="https://ghost545a.github.io/membrane-science/assets/salinity-gradient.webp">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="en" href="https://ghost545a.github.io/membrane-science/">
+<link rel="alternate" hreflang="tr" href="https://ghost545a.github.io/membrane-science/tr.html">
+<link rel="alternate" hreflang="ar" href="https://ghost545a.github.io/membrane-science/ar.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="css/site.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/OrbitControls.js":"./vendor/OrbitControls.js"}}</script>
+<script>window.I18N = {"play": "Play", "pause": "Pause", "replay": "Replay", "phaseA": "Real data · 180 min in 10 s", "phaseB": "Hypothetical · to equilibrium", "min": "min", "days": "days", "feed": "Feed · 0.1 M NaCl", "receiver": "Receiver · DI water", "membrane": "FAA-3-PK-75 membrane", "port": "Sample port", "stirrer": "Stirrer bar", "clamp": "Clamp", "kCond": "Receiver conductivity", "kConc": "Receiver Cl⁻", "kS": "Separation efficiency S", "kEta": "Transfer efficiency η", "kFeed": "Feed conductivity", "kD": "Diffusion coefficient D", "chartA": "Receiver Cl⁻ (mmol/L) vs time (min) · dots are measured", "chartB": "Receiver Cl⁻ (mmol/L) vs time (days) · hypothetical", "hint": "Drag to rotate · scroll or pinch to zoom", "noWebGL": "This 3D view needs WebGL, which your browser has turned off.", "explode": "Explode stack", "ions": "Show ions", "pumps": "Pumps", "labels": "Labels", "river": "River water tank", "sea": "Seawater tank", "pump": "Peristaltic pump", "filter": "Cartridge filter", "stack": "RED stack", "rinse": "Electrode rinse", "load": "Load + multimeter", "outlet": "Brackish outlet", "tips": {"river": "Low-salinity feed (≈0.017 M NaCl, like river water). Pumped through the dilute compartments.", "sea": "High-salinity feed (≈0.5 M NaCl, like sea water). Pumped through the concentrate compartments.", "pump": "Peristaltic pump: sets the flow velocity through the thin compartments (residence time vs. pumping loss).", "filter": "Cartridge filter (5 µm) to stop particles fouling the spacers and membranes.", "stack": "Alternating cation (CEM) and anion (AEM) exchange membranes with spacers between two electrodes.", "cem": "Cation exchange membrane (CEM): fixed −SO₃⁻ groups let Na⁺ through and repel Cl⁻.", "aem": "Anion exchange membrane (AEM): fixed −NR₃⁺ groups let Cl⁻ through and repel Na⁺.", "rinse": "Electrode rinse solution: a redox couple (e.g. Fe²⁺/Fe³⁺) turns the ionic current into an electron current.", "load": "External load and multimeter: the electrons from the redox reactions do work here.", "outlet": "Both streams leave as brackish water: the salinity gradient has been spent."}};</script>
+<script type="module" src="js/cell.js"></script>
+<script type="module" src="js/rig.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">Membrane Science</a>
+    <nav class="nav-links" aria-label="Sections"><a href="#intro">Membranes</a><a href="#blue">Blue energy</a><a href="#project">Our project</a><a href="#world">Around the world</a><a href="#trial">2026–27 trial</a></nav>
+    <div class="langs" role="group" aria-label="Language"><a href="index.html" hreflang="en" lang="en" aria-current="true">English</a><a href="tr.html" hreflang="tr" lang="tr">Türkçe</a><a href="ar.html" hreflang="ar" lang="ar">العربية</a></div>
+  </div>
+</header>
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap">
+    <h1>Membrane Science</h1>
+    <p class="by">by Mohammed Anwar Mahram</p>
+    <p class="lede">How thin selective films separate water, salts and gases, and how the same physics can turn the meeting of river water and sea water into electricity.</p>
+    <p class="credit">Research project ATÜ-LAP-2526-07 at Atılım University, carried out by Mohammed Anwar Mahram and Saed Wael Suleiman under the guidance and supervision of Associate Professor Enver Güler.</p>
+    <div class="actions">
+      <a class="btn btn-fill" href="#project">Watch the membrane</a>
+      <a class="btn btn-tinted" href="assets/poster.pdf" target="_blank" rel="noopener">Read the poster (PDF)</a>
+    </div>
+  </div>
+</section>
+<!-- ================= 1. Membranes ================= -->
+<section class="section" id="intro">
+  <div class="wrap">
+    <p class="eyebrow">1 · Introduction</p>
+    <h2>What a membrane is, and why it works</h2>
+    <p class="intro">A membrane is a selective barrier between two phases. Under a driving force, some species pass through it faster than others, and that difference in rate is the whole of membrane separation.</p>
+
+    <div class="prose">
+      <h3>A short history</h3>
+      <p>In 1748 Abbé Nollet saw water move through a pig's bladder into wine: the first recorded osmosis. Adolf Fick wrote his law of diffusion in 1855, Thomas Graham studied gas permeation through rubber in 1866, and van 't Hoff gave osmotic pressure its thermodynamic form in 1887. Frederick Donnan explained in 1911 why fixed charges in a gel keep out ions of the same sign. The field became an industry in the early 1960s, when Sidney Loeb and Srinivasa Sourirajan cast the first asymmetric cellulose acetate membrane: a dense skin about 0.1–0.2 µm thick on a porous support, thin enough to make reverse osmosis desalination practical. Synthetic ion-exchange membranes (Juda and McRae, 1950) made electrodialysis possible, and in 1954 R. E. Pattle showed that the same membranes can generate electricity from salt and fresh water, the idea behind this whole site.</p>
+
+      <h3>Driving forces</h3>
+      <p>Every membrane process is defined by what pushes the permeating species across. The flux of a species \(i\) is proportional to the gradient of its chemical (or electrochemical) potential \(\mu_i\):</p>
+    </div>
+    <div class="eq">$$J_i = -L_i\,\frac{d\mu_i}{dx},\qquad \mu_i = \mu_i^0 + RT\ln a_i + \bar V_i\,p + z_iF\varphi$$
+      <p class="where">\(a_i\) activity, \(p\) pressure, \(\varphi\) electric potential, \(z_i\) charge number. Each term is one family of processes.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Driving force</th><th>Processes</th><th>Typical use</th></tr></thead>
+      <tbody>
+        <tr><td>Pressure difference Δp</td><td>Microfiltration, ultrafiltration, nanofiltration, reverse osmosis</td><td class="wrap-ok">Clarification, protein concentration, softening, desalination</td></tr>
+        <tr><td>Concentration difference Δc</td><td>Dialysis, diffusion dialysis, forward osmosis, pervaporation</td><td class="wrap-ok">Haemodialysis, acid recovery, dehydration of solvents</td></tr>
+        <tr><td>Electric potential ΔE</td><td>Electrodialysis (ED), reverse electrodialysis (RED)</td><td class="wrap-ok">Brackish water desalting, salt production, blue energy</td></tr>
+        <tr><td>Temperature difference ΔT</td><td>Membrane distillation</td><td class="wrap-ok">Brine concentration with low-grade heat</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="prose">
+      <h3>Pressure-driven membranes, from coarse to tight</h3>
+      <p>The pressure-driven family is ordered by what it rejects. As the pores shrink, the osmotic pressure of the retained solutes has to be overcome as well, so the operating pressure climbs.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Process</th><th>Pore / cut-off</th><th>Pressure (bar)</th><th>Retains</th><th>Mechanism</th></tr></thead>
+      <tbody>
+        <tr><td>Microfiltration</td><td>0.1–10 µm</td><td>0.1–2</td><td>Bacteria, suspended solids</td><td>Sieving</td></tr>
+        <tr><td>Ultrafiltration</td><td>2–100 nm</td><td>1–10</td><td>Proteins, viruses, colloids</td><td>Sieving</td></tr>
+        <tr><td>Nanofiltration</td><td>≈1 nm</td><td>5–20</td><td>Divalent ions, sugars</td><td>Sieving + charge (Donnan)</td></tr>
+        <tr><td>Reverse osmosis</td><td>dense, &lt;0.5 nm</td><td>10–80</td><td>Monovalent salts</td><td>Solution–diffusion</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="prose">
+      <h4>Pore flow</h4>
+      <p>In porous membranes the solvent flows through capillaries; for straight cylindrical pores the Hagen–Poiseuille equation gives the flux:</p>
+    </div>
+    <div class="eq">$$J = \frac{\varepsilon\, r^2}{8\,\eta\,\tau}\,\frac{\Delta p}{\Delta x}$$
+      <p class="where">\(\varepsilon\) porosity, \(r\) pore radius, \(\eta\) viscosity, \(\tau\) tortuosity, \(\Delta x\) thickness.</p></div>
+    <div class="prose">
+      <h4>Solution–diffusion</h4>
+      <p>Dense membranes have no permanent pores. A molecule dissolves in the polymer at the feed face, diffuses down its concentration gradient and leaves at the other face. Separation comes from differences in both solubility and diffusivity. For reverse osmosis this gives a water flux driven by the pressure in excess of the osmotic pressure, and a salt flux that depends only on the concentration difference:</p>
+    </div>
+    <div class="eq">$$J_w = A\,(\Delta p - \Delta\pi),\qquad J_s = B\,(c_f - c_p),\qquad \pi \approx i\,c\,RT$$
+      <p class="where">With the van 't Hoff relation, sea water (≈0.6 M NaCl equivalent) has an osmotic pressure of roughly 27 bar. That is the same free energy RED and PRO try to recover.</p></div>
+
+    <div class="prose">
+      <h3>Diffusion: Fick's first law</h3>
+      <p>When only a concentration difference acts, the flux through a membrane of thickness \(\delta\) at pseudo-steady state is:</p>
+    </div>
+    <div class="eq">$$J = -D\,\frac{dc}{dx} \;\approx\; D\,\frac{\Delta c}{\delta}$$
+      <p class="where">This is the equation we used to get the chloride diffusion coefficient of our membrane in section 3.</p></div>
+
+    <div class="prose">
+      <h3>Ion-exchange membranes</h3>
+      <p>Ion-exchange membranes (IEMs) are dense polymer films carrying fixed charged groups at high concentration, typically 1–3 mmol per gram of dry polymer. The fixed charge is balanced by mobile <em>counter-ions</em> of the opposite sign, which can move through the swollen polymer. Ions with the same sign as the fixed charge, the <em>co-ions</em>, are pushed out.</p>
+      <ul>
+        <li><strong>Cation exchange membranes (CEM)</strong> carry fixed negative groups, usually sulfonic acid (−SO₃⁻). They pass Na⁺, K⁺, Ca²⁺ and repel Cl⁻.</li>
+        <li><strong>Anion exchange membranes (AEM)</strong> carry fixed positive groups, usually quaternary ammonium (−NR₃⁺). They pass Cl⁻, SO₄²⁻ and repel Na⁺. Our Fumasep® FAA-3-PK-75 is an AEM.</li>
+      </ul>
+    </div>
+    <figure class="diagram" style="max-width:44rem">
+      <svg viewBox="0 0 640 230" role="img" aria-label="Donnan exclusion in an anion exchange membrane: chloride passes, sodium is repelled.">
+        <rect x="250" y="20" width="140" height="190" rx="10" fill="#c98a2b" opacity="0.28"/>
+        <g font-size="15" font-weight="700" fill="#c98a2b">
+          <text x="270" y="55">+</text><text x="330" y="45">+</text><text x="365" y="75">+</text><text x="285" y="105">+</text><text x="345" y="125">+</text><text x="268" y="160">+</text><text x="325" y="175">+</text><text x="365" y="195">+</text>
+        </g>
+        <circle cx="120" cy="80" r="14" fill="#1f9d55"/><text x="112" y="85" fill="#fff" style="fill:#fff" font-size="11">Cl⁻</text>
+        <circle cx="520" cy="80" r="14" fill="#1f9d55"/><text x="512" y="85" style="fill:#fff" font-size="11">Cl⁻</text>
+        <path d="M140 80 H500" stroke="#1f9d55" stroke-width="3" fill="none" marker-end="url(#ah1)"/>
+        <circle cx="120" cy="165" r="14" fill="#8e44ad"/><text x="110" y="170" style="fill:#fff" font-size="11">Na⁺</text>
+        <path d="M140 165 H238" stroke="#8e44ad" stroke-width="3" fill="none"/>
+        <path d="M238 165 q-14 0 -30 22" stroke="#8e44ad" stroke-width="3" fill="none" marker-end="url(#ah2)"/>
+        <text x="40" y="30" class="muted">concentrated side</text><text x="470" y="30" class="muted">dilute side</text>
+        <text x="262" y="226" class="muted">AEM, fixed −NR₃⁺</text>
+        <defs>
+          <marker id="ah1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1f9d55"/></marker>
+          <marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8e44ad"/></marker>
+        </defs>
+      </svg>
+      <figcaption>Donnan exclusion in an anion exchange membrane. The fixed positive charges let chloride counter-ions through and electrostatically repel sodium co-ions.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h4>Donnan equilibrium and the membrane potential</h4>
+      <p>At the interface between a solution and an IEM, the electrochemical potential of each mobile ion is equal on both sides. Because the membrane already holds a high concentration of counter-ions, an interfacial potential, the Donnan potential, builds up and keeps co-ions out:</p>
+    </div>
+    <div class="eq">$$E_{Don} = \frac{RT}{z_iF}\ln\frac{a_i^{s}}{a_i^{m}}$$</div>
+    <div class="prose">
+      <p>Put a perfectly selective membrane between two solutions of different activity and the two Donnan potentials no longer cancel. The difference is the membrane potential, given by the Nernst equation and scaled by the apparent permselectivity \(\alpha\):</p>
+    </div>
+    <div class="eq">$$E_m = \alpha\,\frac{RT}{zF}\ln\frac{a_{c}}{a_{d}},\qquad \alpha = \frac{t^{m}_{ct} - t^{s}_{ct}}{1 - t^{s}_{ct}}$$
+      <p class="where">\(t_{ct}^m\), \(t_{ct}^s\): transport numbers of the counter-ion in the membrane and in the solution. \(\alpha = 1\) is an ideal membrane; co-ion leakage lowers it.</p></div>
+
+    <div class="prose">
+      <h4>The properties that matter</h4>
+      <ul>
+        <li><strong>Permselectivity α</strong>: how well co-ions are excluded. Falls at high salt concentration, as Donnan exclusion weakens.</li>
+        <li><strong>Area resistance</strong> (Ω·cm²): the ohmic loss per unit area. Good RED membranes are around 1–3 Ω·cm².</li>
+        <li><strong>Ion-exchange capacity and water uptake</strong>: more fixed charge lowers resistance but swells the polymer, which dilutes the fixed charge and costs selectivity.</li>
+        <li><strong>Monovalent selectivity</strong>: preference for Cl⁻ over SO₄²⁻, or Na⁺ over Mg²⁺ and Ca²⁺. Central to our project (section 2).</li>
+        <li><strong>Thickness</strong>: thinner means lower resistance but more diffusion of salt and water.</li>
+      </ul>
+
+      <h3>Electrodialysis and its reverse</h3>
+      <p>In electrodialysis an applied voltage drives ions through a stack of alternating CEMs and AEMs, so that every second compartment is depleted of salt. Reverse electrodialysis runs the same stack backwards: feed a concentrated and a dilute solution into alternating compartments and the ions diffuse on their own, cations through the CEMs one way and anions through the AEMs the other way. The separated charge is a voltage, and redox reactions at the end electrodes turn it into an electron current through an external load.</p>
+
+      <h3>What goes wrong in practice</h3>
+      <ul>
+        <li><strong>Concentration polarisation</strong>: the solution next to the membrane is depleted or enriched compared with the bulk, which lowers the effective driving force. Stirring, spacers and higher velocity thin out this boundary layer, which is why both compartments in our cell were stirred.</li>
+        <li><strong>Fouling</strong>: organic matter, colloids, biofilms and scale (CaCO₃, Mg(OH)₂) block the membrane and spacers. Natural waters need pretreatment.</li>
+        <li><strong>Multivalent ions</strong>: Mg²⁺, Ca²⁺ and SO₄²⁻ raise membrane resistance and can move against their own gradient ("uphill transport"), cutting the voltage.</li>
+      </ul>
+      <p>For a full treatment, see Mulder's <em>Basic Principles of Membrane Technology</em> and Tanaka's <em>Ion Exchange Membranes</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. Blue energy ================= -->
+<section class="section" id="blue">
+  <div class="wrap">
+    <p class="eyebrow">2 · Blue energy</p>
+    <h2>Power from where rivers meet the sea</h2>
+    <p class="intro">Wherever a river flows into the sea, fresh and salt water mix and release free energy as heat. Reverse electrodialysis captures part of it as electricity instead.</p>
+    <figure>
+      <img src="assets/salinity-gradient.webp" width="1600" height="873" loading="lazy" alt="Illustration of a river mouth where light fresh water meets darker sea water.">
+      <figcaption>Figure 1 of our poster: the salinity gradient between sea water and fresh water drives ion transport in reverse electrodialysis.</figcaption>
+    </figure>
+    <div class="prose">
+      <p>Mixing a cubic metre of river water into the sea releases about 2.2 MJ of Gibbs free energy, about the same as that water falling from a 225 m dam. Counted over all the world's rivers, the theoretical potential of salinity gradient energy is about 2.6 TW; once technical and physical limits are included, it falls to about 983 GW [1]. That is well beyond tidal energy and comparable to wave energy [1, 2].</p>
+      <h3>How a RED stack works</h3>
+      <p>A RED stack is a pile of cell pairs. Each pair is one CEM, one concentrated compartment, one AEM and one dilute compartment, with spacers holding the 100–300 µm gaps open. Na⁺ leaves the sea water through the CEM toward one electrode; Cl⁻ leaves through the AEM toward the other. The voltages of all membranes add up in series.</p>
+    </div>
+    <figure>
+      <img src="assets/red-stack.webp" width="1600" height="718" loading="lazy" alt="Schematic of a RED stack: anode and cathode at the ends, alternating CEM and AEM, river water and seawater compartments, Fe2+/Fe3+ electrolyte, light bulb as load.">
+      <figcaption>Figure 2 of our poster: a RED stack with three cell pairs. The Fe²⁺/Fe³⁺ couple in the electrode rinse turns the ionic current into an electron current through the load.</figcaption>
+    </figure>
+    <div class="eq">$$E_{OCV} = N\,\frac{RT}{F}\left(\alpha_{CEM} + \alpha_{AEM}\right)\ln\frac{a_{sea}}{a_{river}},\qquad P_{max} = \frac{E_{OCV}^2}{4\,R_{stack}}$$
+      <p class="where">With \(N\) cell pairs, sea water at about 0.5 M and river water at about 0.017 M, an ideal cell pair gives roughly 0.17 V. Power peaks when the external load equals the internal resistance of the stack. Performance is reported as power density, in W per m² of membrane.</p></div>
+    <div class="prose">
+      <h3>Why monovalent selectivity matters</h3>
+      <p>Real sea water is not pure NaCl. Mg²⁺, Ca²⁺ and SO₄²⁻ raise the membrane's resistance and, because one divalent ion can swap places with two monovalent ones, they can move against their own gradient and reduce the voltage. In pilot plants fed with natural water, this has cut power to about half of what synthetic NaCl solutions give [1]. Membranes that favour Cl⁻ (or Na⁺) over multivalent ions should keep the power up. Selectivity can come from electrostatic repulsion, size exclusion, differences in hydration energy and mobility, and surface modification of the membrane [2].</p>
+      <p>Before any of that can be measured, we need a reliable baseline for how a standard membrane transports a single monovalent ion. That is our experiment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. Our project ================= -->
+<section class="section" id="project">
+  <div class="wrap">
+    <p class="eyebrow">3 · Our 2025–26 project · ATÜ-LAP-2526-07</p>
+    <h2>Chloride through an anion exchange membrane</h2>
+    <p class="intro">Blue Energy: the effect of monovalent ion selectivity in membranes on salinity gradient energy generation. By Mohammed Anwar Mahram and Saed Wael Suleiman, under the guidance and supervision of Assoc. Prof. Dr. Enver Güler.</p>
+
+    <div class="stage-wrap">
+      <div class="stage" id="cell-stage">
+        <div class="phase-tag" id="cell-phase"></div>
+        <div class="labels"></div>
+        <p class="stage-hint"></p>
+      </div>
+      <div class="controls">
+        <button class="btn btn-fill btn-sm" id="cell-play" type="button">Play</button>
+        <button class="btn btn-plain btn-sm" id="cell-replay" type="button">Replay</button>
+        <div class="scrub"><input type="range" id="cell-scrub" min="0" max="1000" value="0" aria-label="Simulation time"><output id="cell-time">0 min</output></div>
+        <div class="legend"><span><i style="background:var(--cl)"></i>Cl⁻ passes</span><span><i style="background:var(--na)"></i>Na⁺ is blocked</span></div>
+      </div>
+      <div class="hud">
+        <div class="readouts">
+          <div class="readout"><div class="k" data-k="kCond"></div><div class="v" id="r-cond">0</div></div>
+          <div class="readout"><div class="k" data-k="kConc"></div><div class="v" id="r-conc">0</div></div>
+          <div class="readout"><div class="k" data-k="kS"></div><div class="v" id="r-s">–</div></div>
+          <div class="readout"><div class="k" data-k="kEta"></div><div class="v" id="r-eta">0</div></div>
+          <div class="readout"><div class="k" data-k="kFeed"></div><div class="v" id="r-feed">9880</div></div>
+          <div class="readout"><div class="k" data-k="kD"></div><div class="v">2.40 × 10⁻¹¹ <small>m²/s</small></div></div>
+        </div>
+        <div class="chart-card"><div class="k" id="cell-chart-k"></div><canvas id="cell-chart" height="200"></canvas></div>
+      </div>
+      <p class="fineprint">The first 10 seconds replay the measured 180 minutes. The next 10 seconds are hypothetical: they extend the same Fickian model, with the measured D, until both sides reach the same concentration (about 0.05 M each). The number of spheres is magnified at low concentration so the first traces are visible; the panel shows the real values.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Method</h3>
+      <p>A two-compartment diffusion cell was used to study ion transport through the Fumasep® FAA-3-PK-75 anion exchange membrane. The membrane, with an effective diameter of 2.6 cm (an exposed area of 5.31 cm²), was clamped between the two compartments, separating them completely. One side held 300 mL of 0.1 M NaCl as the feed; the other held 300 mL of deionised water as the receiver. Both were stirred magnetically the whole time, to keep the concentration uniform and limit concentration polarisation at the membrane surfaces.</p>
+      <p>The conductivity of both sides was recorded every 30 minutes for 180 minutes, with the temperature taken at each sampling point, under ambient laboratory conditions. Before the test, the membrane was soaked in 0.1 M NaCl to hydrate it and convert it to the chloride form.</p>
+      <h4>Equipment</h4>
+      <ul>
+        <li>Two-compartment diffusion cell</li>
+        <li>Fumasep® FAA-3-PK-75 anion exchange membrane (75 µm, 2.6 cm exposed diameter)</li>
+        <li>Two magnetic stirrers</li>
+        <li>Conductivity meter with a probe and built-in thermometer</li>
+      </ul>
+    </div>
+    <div class="fig-row">
+      <figure><img src="assets/membrane-pretreatment.webp" width="1000" height="750" loading="lazy" alt="A brown membrane sheet soaking in a beaker of salt solution."><figcaption>Figure 3: the FAA-3-PK-75 membrane soaking in 0.1 M NaCl during pretreatment.</figcaption></figure>
+      <figure><img src="assets/cell-photo.webp" width="1200" height="900" loading="lazy" alt="Two glass bottles with red caps labelled donor/feed and DI water/receiver, joined by a clamp holding the selective membrane."><figcaption>Figure 4: the two-compartment diffusion cell, donor (feed) and receiver (DI water) separated by the membrane. The 3D model above is built from it.</figcaption></figure>
+    </div>
+
+    <div class="prose">
+      <h3>Results</h3>
+      <p>Receiver conductivity was converted to concentration with Kohlrausch's law of independent migration of ions, using a molar conductivity of 98 S·cm²/mol for NaCl at about 20 °C:</p>
+    </div>
+    <div class="eq">$$c\;(\text{mmol/L}) = \frac{\kappa\;(\mu\text{S/cm})}{\Lambda_m},\qquad \Lambda_m = \lambda_{Na^+} + \lambda_{Cl^-} \approx 98\ \text{S·cm}^2/\text{mol}$$</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Time (min)</th><th>Receiver (µS/cm)</th><th>Receiver Cl⁻ (mmol/L)</th><th>Feed (µS/cm)</th><th>S (%)</th><th>η (%)</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td><td>9880</td><td>–</td><td>0</td></tr>
+        <tr><td>30</td><td>26</td><td>0.265</td><td>9880</td><td>99.74</td><td>0.27</td></tr>
+        <tr><td>60</td><td>26</td><td>0.265</td><td>9710</td><td>99.73</td><td>0.27</td></tr>
+        <tr><td>90</td><td>40.5</td><td>0.413</td><td>9710</td><td>99.58</td><td>0.42</td></tr>
+        <tr><td>120</td><td>42.6</td><td>0.435</td><td>9700</td><td>99.56</td><td>0.44</td></tr>
+        <tr><td>150</td><td>58</td><td>0.592</td><td>9700</td><td>99.40</td><td>0.60</td></tr>
+        <tr><td>180</td><td>60</td><td>0.612</td><td>9690</td><td>99.39</td><td>0.62</td></tr>
+      </tbody>
+    </table></div>
+    <div class="prose">
+      <p>The flux and the diffusion coefficient then follow from Fick's first law at pseudo-steady state, with Δc<sub>R</sub> = 0.612 mmol/L after Δt = 10 800 s, V = 0.300 L, A = 5.307 cm², δ = 75 µm and Δc = 0.1 mol/L:</p>
+    </div>
+    <div class="eq">$$J = \frac{\Delta c_R\,V}{A\,\Delta t} = \frac{(6.12\times10^{-4}\ \text{mol/L})(0.300\ \text{L})}{(5.307\ \text{cm}^2)(10\,800\ \text{s})} = 3.20\times10^{-9}\ \text{mol cm}^{-2}\,\text{s}^{-1}$$
+    $$D = \frac{J\,\delta}{\Delta c} = \frac{(3.20\times10^{-9})(7.5\times10^{-3}\ \text{cm})}{1.0\times10^{-4}\ \text{mol/cm}^3} = 2.40\times10^{-7}\ \text{cm}^2/\text{s} = 2.40\times10^{-11}\ \text{m}^2/\text{s}$$</div>
+    <div class="eq">$$S\,(\%) = \left(1 - \frac{c_R}{c_F}\right)\times 100,\qquad \eta\,(\%) = \frac{c_R}{c_{F}}\times 100$$</div>
+    <div class="prose">
+      <h3>Conclusions</h3>
+      <ul>
+        <li>Cl⁻ transfer through the Fumasep® FAA-3-PK-75 membrane was characterised at zero current.</li>
+        <li>The diffusion coefficient was 2.40 × 10⁻¹¹ m²/s: slow, steady transport driven by the concentration gradient.</li>
+        <li>Separation efficiency stayed above 99.3% throughout, while transfer efficiency rose from 0.27% to 0.62%: chloride passes while sodium co-ions are held back.</li>
+        <li>These numbers are a baseline for testing monovalent-selective membranes with more complex salt solutions, which is the next step toward RED with natural waters.</li>
+      </ul>
+      <p><a class="btn btn-tinted" href="assets/poster.pdf" target="_blank" rel="noopener">Open the full poster (PDF)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. Around the world ================= -->
+<section class="section" id="world">
+  <div class="wrap">
+    <p class="eyebrow">4 · Around the world</p>
+    <h2>Who has tried this at scale</h2>
+    <p class="intro">RED has been tested at pilot scale but is not yet commercial [1]. These four projects show how far it has come, and what still holds it back.</p>
+    <div class="cards">
+      <article class="card">
+        <span class="tech">Reverse electrodialysis</span>
+        <h3>Netherlands</h3>
+        <p class="where">Afsluitdijk, Breezanddijk · REDstack, Fujifilm, Wetsus · 2014–</p>
+        <dl><dt>Design rating</dt><dd>50 kW</dd><dt>Waters</dt><dd>Lake IJssel (0.02–0.05% salt) vs Wadden Sea (2.8%)</dd><dt>Opened</dt><dd>26 Nov 2014, by King Willem-Alexander</dd></dl>
+        <p>The 32 km Afsluitdijk dam already separates fresh and salt water, so both feeds sit side by side. The pilot uses buffer tanks, pretreatment filters and membrane stacks, building on a decade of RED research at Wetsus. Detailed operating data has not been made public [1]. In 2023 REDstack received €5 million from the Wadden Fund to expand the site.</p>
+      </article>
+      <article class="card">
+        <span class="tech">Reverse electrodialysis</span>
+        <h3>Italy</h3>
+        <p class="where">Marsala saltworks, Trapani, Sicily · EU REAPower project · 2014</p>
+        <dl><dt>First stack</dt><dd>125 cell pairs, 44 × 44 cm, 50 m²</dd><dt>Power</dt><dd>40 W, 0.8 W/m², stable for 5 months</dd><dt>Scaled up</dt><dd>+2 stacks of 500 cell pairs → 330 W</dd></dl>
+        <p>Instead of sea water, REAPower used saturated brine from the saltworks against brackish water, for a much larger salinity ratio. Filters at 50, 25 and 5 µm and twice-weekly shock chlorination handled fouling. But the power was only about half of what synthetic NaCl gave: the divalent ions in natural brine cost the other half [1].</p>
+      </article>
+      <article class="card">
+        <span class="tech pro">Pressure-retarded osmosis (not RED)</span>
+        <h3>Norway</h3>
+        <p class="where">Tofte, Hurum · Statkraft with SINTEF · 2009–2013</p>
+        <dl><dt>Design rating</dt><dd>≈10 kW (achieved a few kW)</dd><dt>Membrane</dt><dd>≈2,000 m², ≈1 W/m²</dd><dt>Target</dt><dd>5 W/m² to be economic</dd></dl>
+        <p>The world's first osmotic power plant, opened in November 2009. It used the other salinity-gradient route: in PRO, water crosses a semi-permeable membrane into pressurised sea water and the extra volume drives a turbine. The membranes never reached the power density needed, and Statkraft stopped its osmotic power work in 2013.</p>
+        <p><strong>PRO vs RED:</strong> PRO moves water and needs high-pressure pumps, turbines and pressure exchangers; RED moves ions and gives electricity directly at low pressure. Tofte's lesson for RED is the same one: membrane power density and cost decide everything.</p>
+      </article>
+      <article class="card">
+        <span class="tech">Reverse electrodialysis</span>
+        <h3>Japan</h3>
+        <p class="where">Okinawa, beside a seawater RO plant · Yamaguchi University</p>
+        <dl><dt>Stack</dt><dd>299 cell pairs, 179.4 m²</dd><dt>Sea / river</dt><dd>110.6 W, 0.62 W/m²</dd><dt>RO brine / river</dt><dd>173.2 W, 0.96 W/m²</dd></dl>
+        <p>The Yamaguchi group (Higa and co-workers) used the concentrated brine from a desalination plant as the salty feed, which both raises the power and puts a waste stream to use. They fitted <strong>monovalent-selective</strong> membranes (Neosepta ACS-8T and CIMS). Divalent ions then cut the power by only about 36%, against about 50% in Italy [1]. This is the result our project builds on.</p>
+      </article>
+    </div>
+    <p class="note">Across all four, the same limits come back: membrane power density, fouling with natural water, multivalent ions, and membrane cost. Our project aims at the third: understanding monovalent transport so that membranes can be chosen, or made, to let Cl⁻ and Na⁺ through while holding back Mg²⁺, Ca²⁺ and SO₄²⁻.</p>
+  </div>
+</section>
+
+<!-- ================= 5. 2026–27 trial ================= -->
+<section class="section" id="trial">
+  <div class="wrap">
+    <p class="eyebrow">5 · 2026–27</p>
+    <h2>Our lab RED trial rig</h2>
+    <p class="intro">The next year's plan: a bench-scale RED stack fed with river-like and sea-like water, to measure voltage and power density with the membranes we characterise. Hover over a part to see what it does.</p>
+    <div class="stage-wrap">
+      <div class="stage" id="rig-stage">
+        <div class="labels"></div>
+        <p class="stage-hint"></p>
+      </div>
+      <div class="controls">
+        <button class="btn btn-plain btn-sm" id="rig-explode" type="button" aria-pressed="false">Explode stack</button>
+        <button class="btn btn-plain btn-sm" id="rig-ions" type="button" aria-pressed="true">Show ions</button>
+        <button class="btn btn-plain btn-sm" id="rig-pumps" type="button" aria-pressed="true">Pumps</button>
+        <button class="btn btn-plain btn-sm" id="rig-labels" type="button" aria-pressed="true">Labels</button>
+      </div>
+      <p class="fineprint">A design concept, not a final build. The multimeter shows a modelled value for a 10-cell-pair stack (about 1.6 V open circuit, half that at a matched load).</p>
+    </div>
+    <div class="soon">
+      <h3>How we plan to improve on it</h3>
+      <p>Coming soon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= References ================= -->
+<section class="section" id="refs">
+  <div class="wrap">
+    <p class="eyebrow">References</p>
+    <ol class="refs">
+      <li>T. Suzuki, Y. Kakihana, M. Higa, “Recovery of salinity gradient energy by reverse electrodialysis (RED): Principle, recent developments, and challenges for commercialization,” <em>Salt and Seawater Science &amp; Technology</em>, vol. 1, pp. 46–60, 2021.</li>
+      <li>H. Rosentreter, C. Scope, T. Oddoy, A. Lerch, J. Meier-Haack, “Monovalent selective ion exchange membranes: A review on preparation processes, applications, performance criteria and sustainability aspects,” <em>Desalination</em>, vol. 599, 118412, 2025.</li>
+      <li>M. Tedesco et al., “Performance of the first reverse electrodialysis pilot plant for power production from saline waters and concentrated brines,” <em>J. Membr. Sci.</em>, vol. 500, pp. 33–45, 2016.</li>
+      <li>S. Mehdizadeh, Y. Kakihana, T. Abo, Q. Yuan, M. Higa, “Power generation performance of a pilot-scale reverse electrodialysis using monovalent selective ion-exchange membranes,” <em>Membranes</em>, vol. 11, 27, 2021.</li>
+      <li>M. Mulder, <em>Basic Principles of Membrane Technology</em>, 2nd ed., Kluwer, 1996.</li>
+      <li>Statkraft osmotic power prototype in Hurum: <a href="https://en.wikipedia.org/wiki/Statkraft_osmotic_power_prototype_in_Hurum" rel="noopener">Wikipedia</a>; <a href="https://www.powermag.com/osmotic-power-makes-headway/" rel="noopener">POWER Magazine</a>.</li>
+      <li>REDstack Blue Energy pilot, Afsluitdijk: <a href="https://theafsluitdijk.com/projects/blue-energy/" rel="noopener">The Afsluitdijk</a>; <a href="https://www.dutchwatersector.com/node/855" rel="noopener">Dutch Water Sector</a>.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+<footer class="footer"><div class="wrap"><p><strong>Membrane Science</strong> by Mohammed Anwar Mahram. Department of Chemical Engineering, Faculty of Engineering, Atılım University, Ankara.</p><p>Project ATÜ-LAP-2526-07, by Mohammed Anwar Mahram and Saed Wael Suleiman under the guidance and supervision of Assoc. Prof. Dr. Enver Güler, supported by Atılım University Scientific Research Projects Coordination (LAP). With thanks to AREGDA-TTO for their help during the project.</p></div></footer>
+</body>
+</html>

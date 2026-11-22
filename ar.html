@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>علم الأغشية — محمد أنور محرم</title>
+<meta name="description" content="مدخل إلى علم الأغشية، ومحاكاة ثلاثية الأبعاد لتجربتنا على انتقال أيونات الكلوريد عبر غشاء التبادل الأنيوني Fumasep FAA-3-PK-75، والطاقة الزرقاء بالديال الكهربائي العكسي.">
+<meta name="author" content="Mohammed Anwar Mahram">
+<meta property="og:title" content="علم الأغشية — محمد أنور محرم">
+<meta property="og:description" content="مدخل إلى علم الأغشية، ومحاكاة ثلاثية الأبعاد لتجربتنا على انتقال أيونات الكلوريد عبر غشاء التبادل الأنيوني Fumasep FAA-3-PK-75، والطاقة الزرقاء بالديال الكهربائي العكسي.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ghost545a.github.io/membrane-science/ar.html">
+<meta property="og:image" content="https://ghost545a.github.io/membrane-science/assets/salinity-gradient.webp">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="en" href="https://ghost545a.github.io/membrane-science/">
+<link rel="alternate" hreflang="tr" href="https://ghost545a.github.io/membrane-science/tr.html">
+<link rel="alternate" hreflang="ar" href="https://ghost545a.github.io/membrane-science/ar.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="css/site.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/OrbitControls.js":"./vendor/OrbitControls.js"}}</script>
+<script>window.I18N = {"play": "تشغيل", "pause": "إيقاف", "replay": "إعادة", "phaseA": "بيانات حقيقية · 180 دقيقة في 10 ثوانٍ", "phaseB": "افتراضي · حتى الاتزان", "min": "دقيقة", "days": "يوم", "feed": "التغذية · ⁦0.1 M NaCl⁩", "receiver": "المستقبِل · ماء منزوع الأيونات", "membrane": "غشاء FAA-3-PK-75", "port": "فتحة أخذ العينات", "stirrer": "قضيب التقليب", "clamp": "الملقط", "kCond": "موصلية المستقبِل", "kConc": "Cl⁻ في المستقبِل", "kS": "كفاءة الفصل S", "kEta": "كفاءة الانتقال η", "kFeed": "موصلية التغذية", "kD": "معامل الانتشار D", "chartA": "Cl⁻ في المستقبِل (mmol/L) مقابل الزمن (دقيقة) · النقاط قياسات", "chartB": "Cl⁻ في المستقبِل (mmol/L) مقابل الزمن (يوم) · افتراضي", "hint": "اسحب للتدوير · مرّر أو اقرص للتكبير", "noWebGL": "يحتاج هذا العرض ثلاثي الأبعاد إلى WebGL، وهو معطّل في متصفحك.", "explode": "تفكيك الحزمة", "ions": "إظهار الأيونات", "pumps": "المضخات", "labels": "التسميات", "river": "خزان ماء النهر", "sea": "خزان ماء البحر", "pump": "مضخة تمعجية", "filter": "مرشّح خرطوشي", "stack": "حزمة RED", "rinse": "محلول شطف الأقطاب", "load": "الحمل + المقياس المتعدد", "outlet": "مخرج الماء قليل الملوحة", "tips": {"river": "تغذية منخفضة الملوحة (≈0.017 M NaCl مثل ماء النهر)، تمر عبر الحجيرات المخففة.", "sea": "تغذية عالية الملوحة (≈0.5 M NaCl مثل ماء البحر)، تمر عبر الحجيرات المركزة.", "pump": "مضخة تمعجية: تضبط سرعة الجريان في الحجيرات الرقيقة (توازن بين زمن البقاء وفقد الضخ).", "filter": "مرشّح خرطوشي (5 ميكرومتر) يمنع الجسيمات من سدّ الفواصل وتلويث الأغشية.", "stack": "أغشية تبادل كاتيوني (CEM) وأنيوني (AEM) متناوبة، بينها فواصل، محصورة بين قطبين.", "cem": "غشاء تبادل كاتيوني (CEM): مجموعات −SO₃⁻ الثابتة تمرّر Na⁺ وتطرد Cl⁻.", "aem": "غشاء تبادل أنيوني (AEM): مجموعات −NR₃⁺ الثابتة تمرّر Cl⁻ وتطرد Na⁺.", "rinse": "محلول شطف الأقطاب: زوج أكسدة واختزال (مثل Fe²⁺/Fe³⁺) يحوّل التيار الأيوني إلى تيار إلكتروني.", "load": "الحمل الخارجي والمقياس المتعدد: هنا تؤدي الإلكترونات الناتجة شغلًا مفيدًا.", "outlet": "يخرج التياران ماءً قليل الملوحة: لقد استُهلك فرق الملوحة."}};</script>
+<script type="module" src="js/cell.js"></script>
+<script type="module" src="js/rig.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">انتقل إلى المحتوى</a>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">علم الأغشية</a>
+    <nav class="nav-links" aria-label="Sections"><a href="#intro">الأغشية</a><a href="#blue">الطاقة الزرقاء</a><a href="#project">مشروعنا</a><a href="#world">حول العالم</a><a href="#trial">تجربة 2026–2027</a></nav>
+    <div class="langs" role="group" aria-label="Language"><a href="index.html" hreflang="en" lang="en">English</a><a href="tr.html" hreflang="tr" lang="tr">Türkçe</a><a href="ar.html" hreflang="ar" lang="ar" aria-current="true">العربية</a></div>
+  </div>
+</header>
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap">
+    <h1>علم الأغشية</h1>
+    <p class="by">محمد أنور محرم</p>
+    <p class="lede">كيف تفصل أغشية رقيقة انتقائية الماءَ عن الأملاح والغازات، وكيف يمكن للفيزياء نفسها أن تحوّل لقاء ماء النهر بماء البحر إلى كهرباء.</p>
+    <p class="credit">مشروع البحث ATÜ-LAP-2526-07 في جامعة أتيليم، أنجزه محمد أنور محرم وسعد وائل سليمان بتوجيه وإشراف الأستاذ المشارك الدكتور أنور غولر.</p>
+    <div class="actions">
+      <a class="btn btn-fill" href="#project">شاهد الغشاء</a>
+      <a class="btn btn-tinted" href="assets/poster.pdf" target="_blank" rel="noopener">اقرأ الملصق العلمي (PDF)</a>
+    </div>
+  </div>
+</section>
+<!-- ================= 1. الأغشية ================= -->
+<section class="section" id="intro">
+  <div class="wrap">
+    <p class="eyebrow">١ · مقدمة</p>
+    <h2>ما الغشاء، ولماذا يعمل</h2>
+    <p class="intro">الغشاء حاجز انتقائي بين طورين. تحت تأثير قوة دافعة، تعبره بعض المكوّنات أسرع من غيرها، وعلى هذا الفرق في السرعة يقوم الفصل الغشائي كله.</p>
+
+    <div class="prose">
+      <h3>لمحة تاريخية</h3>
+      <p>في عام 1748 لاحظ الأب نوليه انتقال الماء عبر مثانة خنزير إلى النبيذ، وكانت تلك أول ملاحظة مسجّلة للتناضح. كتب أدولف فيك قانون الانتشار عام 1855، ودرس توماس غراهام نفاذ الغازات عبر المطاط عام 1866، وأعطى فانت هوف الضغطَ التناضحي صيغته الديناميكية الحرارية عام 1887. وفي 1911 فسّر فريدريك دونان لماذا تطرد الشحنات الثابتة في الهلام الأيوناتِ التي تحمل الإشارة نفسها. تحوّل المجال إلى صناعة في مطلع الستينيات حين صبّ سيدني لوب وسرينيفاسا سوريراجان أول غشاء غير متماثل من أسيتات السليلوز: طبقة كثيفة بسماكة 0.1–0.2 ميكرومتر تقريبًا فوق دعامة مسامية، رقيقة بما يكفي لجعل تحلية المياه بالتناضح العكسي عملية. ثم جعلت أغشية التبادل الأيوني الاصطناعية (جودا وماكري، 1950) الديال الكهربائي ممكنًا، وفي 1954 أظهر ر. إ. باتل أن الأغشية نفسها يمكنها توليد الكهرباء من الماء المالح والعذب، وهي الفكرة التي يقوم عليها هذا الموقع.</p>
+
+      <h3>القوى الدافعة</h3>
+      <p>تُعرَّف كل عملية غشائية بما يدفع المكوّن النافذ عبر الغشاء. فيتناسب تدفق المكوّن \(i\) مع تدرّج جهده الكيميائي (أو الكهروكيميائي) \(\mu_i\):</p>
+    </div>
+    <div class="eq">$$J_i = -L_i\,\frac{d\mu_i}{dx},\qquad \mu_i = \mu_i^0 + RT\ln a_i + \bar V_i\,p + z_iF\varphi$$
+      <p class="where">\(a_i\) الفاعلية، \(p\) الضغط، \(\varphi\) الجهد الكهربائي، \(z_i\) عدد الشحنة. كل حدّ يقابل عائلة من العمليات.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>القوة الدافعة</th><th>العمليات</th><th>الاستخدام المعتاد</th></tr></thead>
+      <tbody>
+        <tr><td>فرق الضغط Δp</td><td>الترشيح الدقيق، الترشيح الفائق، الترشيح النانوي، التناضح العكسي</td><td class="wrap-ok">الترويق، تركيز البروتينات، تيسير الماء، التحلية</td></tr>
+        <tr><td>فرق التركيز Δc</td><td>الديال، الديال الانتشاري، التناضح الأمامي، التبخير الغشائي</td><td class="wrap-ok">غسيل الكلى، استرجاع الأحماض، تجفيف المذيبات</td></tr>
+        <tr><td>فرق الجهد الكهربائي ΔE</td><td>الديال الكهربائي (ED)، الديال الكهربائي العكسي (RED)</td><td class="wrap-ok">تحلية المياه قليلة الملوحة، إنتاج الملح، الطاقة الزرقاء</td></tr>
+        <tr><td>فرق درجة الحرارة ΔT</td><td>التقطير الغشائي</td><td class="wrap-ok">تركيز المحاليل الملحية بحرارة منخفضة الدرجة</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="prose">
+      <h3>الأغشية المدفوعة بالضغط، من الأوسع إلى الأضيق</h3>
+      <p>تُرتَّب هذه العائلة بحسب ما تحجزه. كلما ضاقت المسام وجب التغلب أيضًا على الضغط التناضحي للمذابات المحجوزة، فيرتفع ضغط التشغيل.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>العملية</th><th>المسام / حد القطع</th><th>الضغط (bar)</th><th>ما تحجزه</th><th>الآلية</th></tr></thead>
+      <tbody>
+        <tr><td>الترشيح الدقيق</td><td>0.1–10 µm</td><td>0.1–2</td><td>البكتيريا والمواد العالقة</td><td>المنخلة</td></tr>
+        <tr><td>الترشيح الفائق</td><td>2–100 nm</td><td>1–10</td><td>البروتينات والفيروسات والغرويات</td><td>المنخلة</td></tr>
+        <tr><td>الترشيح النانوي</td><td>≈1 nm</td><td>5–20</td><td>الأيونات ثنائية التكافؤ والسكريات</td><td>منخلة + شحنة (دونان)</td></tr>
+        <tr><td>التناضح العكسي</td><td>كثيف، &lt;0.5 nm</td><td>10–80</td><td>الأملاح أحادية التكافؤ</td><td>الذوبان–الانتشار</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="prose">
+      <h4>الجريان عبر المسام</h4>
+      <p>في الأغشية المسامية يجري المذيب عبر شُعيرات؛ وللمسام الأسطوانية المستقيمة تعطي معادلة هاغن–بوازوي التدفق:</p>
+    </div>
+    <div class="eq">$$J = \frac{\varepsilon\, r^2}{8\,\eta\,\tau}\,\frac{\Delta p}{\Delta x}$$
+      <p class="where">\(\varepsilon\) المسامية، \(r\) نصف قطر المسام، \(\eta\) اللزوجة، \(\tau\) التعرّج، \(\Delta x\) السماكة.</p></div>
+    <div class="prose">
+      <h4>الذوبان–الانتشار</h4>
+      <p>لا تحوي الأغشية الكثيفة مسامًا دائمة. يذوب الجزيء في البوليمر عند وجه التغذية، وينتشر مع تدرّج تركيزه، ثم يغادر من الوجه الآخر. وينشأ الفصل من اختلاف الذوبانية والانتشارية معًا. وفي التناضح العكسي يعطي ذلك تدفقًا للماء يدفعه الضغط الزائد عن الضغط التناضحي، وتدفقًا للملح لا يعتمد إلا على فرق التركيز:</p>
+    </div>
+    <div class="eq">$$J_w = A\,(\Delta p - \Delta\pi),\qquad J_s = B\,(c_f - c_p),\qquad \pi \approx i\,c\,RT$$
+      <p class="where">بعلاقة فانت هوف، يبلغ الضغط التناضحي لماء البحر (≈0.6 M مكافئ NaCl) نحو 27 bar، وهي الطاقة الحرة نفسها التي يحاول RED وPRO استرجاعها.</p></div>
+
+    <div class="prose">
+      <h3>الانتشار: قانون فيك الأول</h3>
+      <p>حين لا يؤثر إلا فرق التركيز، يكون التدفق عبر غشاء سماكته \(\delta\) في الحالة شبه المستقرة:</p>
+    </div>
+    <div class="eq">$$J = -D\,\frac{dc}{dx} \;\approx\; D\,\frac{\Delta c}{\delta}$$
+      <p class="where">هذه هي المعادلة التي استخدمناها لإيجاد معامل انتشار الكلوريد في غشائنا في القسم ٣.</p></div>
+
+    <div class="prose">
+      <h3>أغشية التبادل الأيوني</h3>
+      <p>أغشية التبادل الأيوني (IEM) أفلام بوليمرية كثيفة تحمل مجموعات مشحونة ثابتة بتركيز عالٍ، عادةً 1–3 مليمول لكل غرام من البوليمر الجاف. تُعادَل الشحنة الثابتة بـ<em>أيونات مضادة</em> متحركة مخالفة لها في الإشارة، تستطيع التنقل داخل البوليمر المنتفخ. أما الأيونات التي تحمل إشارة الشحنة الثابتة نفسها، أي <em>الأيونات المشاركة</em>، فتُطرد.</p>
+      <ul>
+        <li><strong>أغشية التبادل الكاتيوني (CEM)</strong> تحمل مجموعات سالبة ثابتة، غالبًا حمض السلفونيك (−SO₃⁻)، فتمرّر Na⁺ وK⁺ وCa²⁺ وتطرد Cl⁻.</li>
+        <li><strong>أغشية التبادل الأنيوني (AEM)</strong> تحمل مجموعات موجبة ثابتة، غالبًا الأمونيوم الرباعي (−NR₃⁺)، فتمرّر Cl⁻ وSO₄²⁻ وتطرد Na⁺. وغشاؤنا Fumasep® FAA-3-PK-75 من هذا النوع.</li>
+      </ul>
+    </div>
+    <figure class="diagram" style="max-width:44rem">
+      <svg viewBox="0 0 640 230" role="img" aria-label="الاستبعاد الدوناني في غشاء تبادل أنيوني: يمر الكلوريد ويُطرد الصوديوم." direction="ltr">
+        <rect x="250" y="20" width="140" height="190" rx="10" fill="#c98a2b" opacity="0.28"/>
+        <g font-size="15" font-weight="700" fill="#c98a2b">
+          <text x="270" y="55">+</text><text x="330" y="45">+</text><text x="365" y="75">+</text><text x="285" y="105">+</text><text x="345" y="125">+</text><text x="268" y="160">+</text><text x="325" y="175">+</text><text x="365" y="195">+</text>
+        </g>
+        <circle cx="120" cy="80" r="14" fill="#1f9d55"/><text x="112" y="85" style="fill:#fff" font-size="11">Cl⁻</text>
+        <circle cx="520" cy="80" r="14" fill="#1f9d55"/><text x="512" y="85" style="fill:#fff" font-size="11">Cl⁻</text>
+        <path d="M140 80 H500" stroke="#1f9d55" stroke-width="3" fill="none" marker-end="url(#ah1)"/>
+        <circle cx="120" cy="165" r="14" fill="#8e44ad"/><text x="110" y="170" style="fill:#fff" font-size="11">Na⁺</text>
+        <path d="M140 165 H238" stroke="#8e44ad" stroke-width="3" fill="none"/>
+        <path d="M238 165 q-14 0 -30 22" stroke="#8e44ad" stroke-width="3" fill="none" marker-end="url(#ah2)"/>
+        <text x="60" y="30" class="muted">الجانب المركّز</text><text x="500" y="30" class="muted">الجانب المخفّف</text>
+        <text x="262" y="226" class="muted">AEM، ‎−NR₃⁺ ثابتة</text>
+        <defs>
+          <marker id="ah1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1f9d55"/></marker>
+          <marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8e44ad"/></marker>
+        </defs>
+      </svg>
+      <figcaption>الاستبعاد الدوناني في غشاء تبادل أنيوني: تسمح الشحنات الموجبة الثابتة بمرور أيونات الكلوريد المضادة، وتطرد أيونات الصوديوم المشاركة كهروستاتيكيًا.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h4>اتزان دونان وجهد الغشاء</h4>
+      <p>عند السطح الفاصل بين المحلول والغشاء يتساوى الجهد الكهروكيميائي لكل أيون متحرك على الجانبين. ولأن الغشاء يحوي أصلًا تركيزًا عاليًا من الأيونات المضادة، ينشأ جهد بيني هو جهد دونان، فيُبقي الأيونات المشاركة خارجه:</p>
+    </div>
+    <div class="eq">$$E_{Don} = \frac{RT}{z_iF}\ln\frac{a_i^{s}}{a_i^{m}}$$</div>
+    <div class="prose">
+      <p>ضع غشاءً تام الانتقائية بين محلولين مختلفي الفاعلية، فلن يُلغي جهدا دونان أحدهما الآخر. الفرق بينهما هو جهد الغشاء، وتعطيه معادلة نرنست مضروبة في الانتقائية الظاهرية \(\alpha\):</p>
+    </div>
+    <div class="eq">$$E_m = \alpha\,\frac{RT}{zF}\ln\frac{a_{c}}{a_{d}},\qquad \alpha = \frac{t^{m}_{ct} - t^{s}_{ct}}{1 - t^{s}_{ct}}$$
+      <p class="where">\(t_{ct}^m\) و\(t_{ct}^s\): عددا انتقال الأيون المضاد في الغشاء وفي المحلول. \(\alpha = 1\) غشاء مثالي، وتسرّب الأيونات المشاركة يخفضها.</p></div>
+
+    <div class="prose">
+      <h4>الخصائص التي تهم</h4>
+      <ul>
+        <li><strong>الانتقائية α</strong>: مدى جودة استبعاد الأيونات المشاركة. تنخفض عند تراكيز الملح العالية مع ضعف الاستبعاد الدوناني.</li>
+        <li><strong>المقاومة السطحية</strong> (Ω·cm²): الفقد الأومي لكل وحدة مساحة. أغشية RED الجيدة في حدود 1–3 Ω·cm².</li>
+        <li><strong>سعة التبادل الأيوني وامتصاص الماء</strong>: زيادة الشحنة الثابتة تخفض المقاومة لكنها تنفخ البوليمر، فتخفف الشحنة الثابتة وتُضعف الانتقائية.</li>
+        <li><strong>الانتقائية للأيونات أحادية التكافؤ</strong>: تفضيل Cl⁻ على SO₄²⁻، أو Na⁺ على Mg²⁺ وCa²⁺. وهذا محور مشروعنا (القسم ٢).</li>
+        <li><strong>السماكة</strong>: الأرقّ يعني مقاومة أقل، لكن انتشارًا أكبر للملح والماء.</li>
+      </ul>
+
+      <h3>الديال الكهربائي وعكسه</h3>
+      <p>في الديال الكهربائي يدفع جهدٌ مطبَّق الأيوناتِ عبر حزمة من أغشية CEM وAEM متناوبة، فتفقد كل حجيرة ثانية ملحها. أما الديال الكهربائي العكسي فيشغّل الحزمة نفسها بالاتجاه المعاكس: أدخل محلولًا مركّزًا وآخر مخففًا في حجيرات متناوبة، فتنتشر الأيونات من تلقاء نفسها، الكاتيونات عبر CEM في اتجاه، والأنيونات عبر AEM في الاتجاه الآخر. الشحنة المنفصلة جهدٌ كهربائي، وتفاعلات الأكسدة والاختزال عند القطبين الطرفيين تحوّله إلى تيار إلكتروني يمر في حمل خارجي.</p>
+
+      <h3>ما الذي يسوء عمليًا</h3>
+      <ul>
+        <li><strong>استقطاب التركيز</strong>: يصبح المحلول الملاصق للغشاء أفقر أو أغنى من باقي المحلول، فتقل القوة الدافعة الفعلية. التقليب والفواصل والسرعة الأعلى ترقّق هذه الطبقة الحدّية، ولهذا قُلّب جانبا خليتنا كلاهما.</li>
+        <li><strong>الاتساخ</strong>: المواد العضوية والغرويات والأغشية الحيوية والقشور (CaCO₃ وMg(OH)₂) تسد الغشاء والفواصل، لذا تحتاج المياه الطبيعية إلى معالجة مسبقة.</li>
+        <li><strong>الأيونات متعددة التكافؤ</strong>: ترفع Mg²⁺ وCa²⁺ وSO₄²⁻ مقاومة الغشاء، وقد تتحرك عكس تدرّجها ("النقل الصاعد") فتخفض الجهد.</li>
+      </ul>
+      <p>للتوسع، راجع كتاب مولدر <em>Basic Principles of Membrane Technology</em> وكتاب تاناكا <em>Ion Exchange Membranes</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. الطاقة الزرقاء ================= -->
+<section class="section" id="blue">
+  <div class="wrap">
+    <p class="eyebrow">٢ · الطاقة الزرقاء</p>
+    <h2>طاقة من حيث يلتقي النهر بالبحر</h2>
+    <p class="intro">حيثما يصب نهر في البحر، يمتزج الماء العذب بالمالح ويطلق طاقة حرة على شكل حرارة. والديال الكهربائي العكسي يلتقط جزءًا منها على شكل كهرباء بدلًا من ذلك.</p>
+    <figure>
+      <img src="assets/salinity-gradient.webp" width="1600" height="873" loading="lazy" alt="رسم لمصب نهر حيث يلتقي الماء العذب الفاتح بماء البحر الداكن.">
+      <figcaption>الشكل ١ من ملصقنا: فرق الملوحة بين ماء البحر والماء العذب هو ما يدفع انتقال الأيونات في الديال الكهربائي العكسي.</figcaption>
+    </figure>
+    <div class="prose">
+      <p>يطلق امتزاج متر مكعب واحد من ماء النهر بالبحر نحو 2.2 ميغاجول من طاقة جيبس الحرة، أي ما يعادل سقوط ذلك الماء من سد ارتفاعه 225 مترًا. وإذا حُسبت أنهار العالم كلها، فإن الإمكانية النظرية لطاقة فرق الملوحة تبلغ نحو 2.6 تيراواط، وتنخفض إلى نحو 983 غيغاواط بعد احتساب القيود التقنية والفيزيائية [1]. وهذا أكبر بكثير من طاقة المد والجزر ويقارب طاقة الأمواج [1، 2].</p>
+      <h3>كيف تعمل حزمة RED</h3>
+      <p>حزمة RED كومة من أزواج الخلايا. يتكون كل زوج من غشاء CEM وحجيرة مركّزة وغشاء AEM وحجيرة مخففة، وتُبقي الفواصل الفراغات بين 100 و300 ميكرومتر مفتوحة. يغادر Na⁺ ماء البحر عبر CEM نحو أحد القطبين، ويغادر Cl⁻ عبر AEM نحو القطب الآخر، وتتجمع جهود الأغشية كلها على التوالي.</p>
+    </div>
+    <figure>
+      <img src="assets/red-stack.webp" width="1600" height="718" loading="lazy" alt="مخطط حزمة RED: أنود وكاثود في الطرفين، أغشية CEM وAEM متناوبة، حجيرات ماء النهر وماء البحر، إلكتروليت Fe2+/Fe3+، ومصباح كحمل.">
+      <figcaption>الشكل ٢ من ملصقنا: حزمة RED بثلاثة أزواج خلايا. يحوّل الزوج Fe²⁺/Fe³⁺ في محلول شطف الأقطاب التيارَ الأيوني إلى تيار إلكتروني يمر في الحمل.</figcaption>
+    </figure>
+    <div class="eq">$$E_{OCV} = N\,\frac{RT}{F}\left(\alpha_{CEM} + \alpha_{AEM}\right)\ln\frac{a_{sea}}{a_{river}},\qquad P_{max} = \frac{E_{OCV}^2}{4\,R_{stack}}$$
+      <p class="where">مع \(N\) زوجًا من الخلايا، وماء بحر بتركيز 0.5 M تقريبًا وماء نهر بتركيز 0.017 M تقريبًا، يعطي زوج الخلايا المثالي نحو 0.17 فولت. وتبلغ القدرة ذروتها حين يساوي الحمل الخارجي المقاومة الداخلية للحزمة. ويُعبَّر عن الأداء بكثافة القدرة، بالواط لكل متر مربع من الغشاء.</p></div>
+    <div class="prose">
+      <h3>لماذا تهم الانتقائية للأيونات أحادية التكافؤ</h3>
+      <p>ماء البحر الحقيقي ليس NaCl نقيًا. فالأيونات Mg²⁺ وCa²⁺ وSO₄²⁻ ترفع مقاومة الغشاء، ولأن أيونًا ثنائي التكافؤ واحدًا يمكنه أن يحل محل أيونين أحاديين، فقد تتحرك عكس تدرّجها وتخفض الجهد. وفي المحطات التجريبية المغذّاة بمياه طبيعية خفّض ذلك القدرة إلى نحو نصف ما تعطيه محاليل NaCl الاصطناعية [1]. لذا يُتوقع أن تحافظ الأغشية التي تفضّل Cl⁻ (أو Na⁺) على الأيونات متعددة التكافؤ على القدرة. ويمكن تحقيق هذه الانتقائية بالتنافر الكهروستاتيكي، والاستبعاد الحجمي، واختلاف طاقة التميؤ والحركية، وتعديل سطح الغشاء [2].</p>
+      <p>وقبل قياس أي من ذلك، نحتاج إلى خط أساس موثوق لكيفية نقل غشاء قياسي لأيون واحد أحادي التكافؤ. وهذه هي تجربتنا.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. مشروعنا ================= -->
+<section class="section" id="project">
+  <div class="wrap">
+    <p class="eyebrow">٣ · مشروعنا 2025–2026 · ATÜ-LAP-2526-07</p>
+    <h2>الكلوريد عبر غشاء تبادل أنيوني</h2>
+    <p class="intro">الطاقة الزرقاء: أثر انتقائية الأغشية للأيونات أحادية التكافؤ في توليد طاقة فرق الملوحة. إعداد محمد أنور محرم وسعد وائل سليمان، بتوجيه وإشراف الأستاذ المشارك الدكتور أنور غولر.</p>
+
+    <div class="stage-wrap">
+      <div class="stage" id="cell-stage">
+        <div class="phase-tag" id="cell-phase"></div>
+        <div class="labels"></div>
+        <p class="stage-hint"></p>
+      </div>
+      <div class="controls">
+        <button class="btn btn-fill btn-sm" id="cell-play" type="button">تشغيل</button>
+        <button class="btn btn-plain btn-sm" id="cell-replay" type="button">إعادة</button>
+        <div class="scrub"><input type="range" id="cell-scrub" min="0" max="1000" value="0" aria-label="زمن المحاكاة" dir="ltr"><output id="cell-time">0 دقيقة</output></div>
+        <div class="legend"><span><i style="background:var(--cl)"></i>Cl⁻ يعبر</span><span><i style="background:var(--na)"></i>Na⁺ محجوب</span></div>
+      </div>
+      <div class="hud">
+        <div class="readouts">
+          <div class="readout"><div class="k" data-k="kCond"></div><div class="v" id="r-cond">0</div></div>
+          <div class="readout"><div class="k" data-k="kConc"></div><div class="v" id="r-conc">0</div></div>
+          <div class="readout"><div class="k" data-k="kS"></div><div class="v" id="r-s">–</div></div>
+          <div class="readout"><div class="k" data-k="kEta"></div><div class="v" id="r-eta">0</div></div>
+          <div class="readout"><div class="k" data-k="kFeed"></div><div class="v" id="r-feed">9880</div></div>
+          <div class="readout"><div class="k" data-k="kD"></div><div class="v">2.40 × 10⁻¹¹ <small>m²/s</small></div></div>
+        </div>
+        <div class="chart-card"><div class="k" id="cell-chart-k"></div><canvas id="cell-chart" height="200"></canvas></div>
+      </div>
+      <p class="fineprint">تعيد الثواني العشر الأولى عرض الدقائق المئة والثمانين المقيسة. أما الثواني العشر التالية فافتراضية: تمدّ نموذج فيك نفسه، بقيمة D المقيسة، حتى يصل الجانبان إلى التركيز نفسه (نحو 0.05 M لكلٍّ منهما). وقد كُبّر عدد الكرات عند التراكيز المنخفضة لتظهر الآثار الأولى، أما اللوحة فتعرض القيم الحقيقية.</p>
+    </div>
+
+    <div class="prose">
+      <h3>طريقة العمل</h3>
+      <p>استُخدمت خلية انتشار ذات حجيرتين لدراسة انتقال الأيونات عبر غشاء التبادل الأنيوني Fumasep® FAA-3-PK-75. ثُبّت الغشاء، بقطر فعّال 2.6 سم (مساحة مكشوفة 5.31 سم²)، بين الحجيرتين ففصلهما فصلًا تامًا. احتوى أحد الجانبين على 300 مل من محلول NaCl بتركيز 0.1 M بوصفه التغذية، واحتوى الآخر على 300 مل من الماء منزوع الأيونات بوصفه المستقبِل. وقُلّب الجانبان مغناطيسيًا طوال الوقت للحفاظ على تجانس التركيز والحد من استقطاب التركيز عند سطحي الغشاء.</p>
+      <p>سُجّلت موصلية الجانبين كل 30 دقيقة على مدى 180 دقيقة، مع قياس درجة الحرارة عند كل عيّنة، وأُجريت القياسات كلها في ظروف المختبر المحيطة. وقبل التجربة نُقع الغشاء في NaCl بتركيز 0.1 M لترطيبه وتحويله إلى صورة الكلوريد.</p>
+      <h4>الأدوات المستخدمة</h4>
+      <ul>
+        <li>خلية انتشار ذات حجيرتين</li>
+        <li>غشاء تبادل أنيوني Fumasep® FAA-3-PK-75 (سماكة 75 ميكرومتر، قطر مكشوف 2.6 سم)</li>
+        <li>خلاطان مغناطيسيان</li>
+        <li>مقياس موصلية بمسبار ومقياس حرارة مدمج</li>
+      </ul>
+    </div>
+    <div class="fig-row">
+      <figure><img src="assets/membrane-pretreatment.webp" width="1000" height="750" loading="lazy" alt="غشاء بني منقوع في كأس فيه محلول ملحي."><figcaption>الشكل ٣: غشاء FAA-3-PK-75 منقوعًا في NaCl بتركيز 0.1 M أثناء المعالجة المسبقة.</figcaption></figure>
+      <figure><img src="assets/cell-photo.webp" width="1200" height="900" loading="lazy" alt="قارورتان زجاجيتان بأغطية حمراء مكتوب عليهما مانح/تغذية وماء منزوع الأيونات/مستقبِل، يصل بينهما ملقط يمسك الغشاء الانتقائي."><figcaption>الشكل ٤: خلية الانتشار ذات الحجيرتين: المانح (التغذية) والمستقبِل (ماء منزوع الأيونات) يفصل بينهما الغشاء. وعلى أساسها بُني النموذج ثلاثي الأبعاد أعلاه.</figcaption></figure>
+    </div>
+
+    <div class="prose">
+      <h3>النتائج</h3>
+      <p>حُوّلت موصلية المستقبِل إلى تركيز بقانون كولراوش للهجرة المستقلة للأيونات، باستخدام موصلية مولية قدرها 98 S·cm²/mol لـ NaCl عند نحو 20 °س:</p>
+    </div>
+    <div class="eq">$$c\;(\text{mmol/L}) = \frac{\kappa\;(\mu\text{S/cm})}{\Lambda_m},\qquad \Lambda_m = \lambda_{Na^+} + \lambda_{Cl^-} \approx 98\ \text{S·cm}^2/\text{mol}$$</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>الزمن (دقيقة)</th><th>المستقبِل (µS/cm)</th><th>Cl⁻ في المستقبِل (mmol/L)</th><th>التغذية (µS/cm)</th><th>S (%)</th><th>η (%)</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td><td>9880</td><td>–</td><td>0</td></tr>
+        <tr><td>30</td><td>26</td><td>0.265</td><td>9880</td><td>99.74</td><td>0.27</td></tr>
+        <tr><td>60</td><td>26</td><td>0.265</td><td>9710</td><td>99.73</td><td>0.27</td></tr>
+        <tr><td>90</td><td>40.5</td><td>0.413</td><td>9710</td><td>99.58</td><td>0.42</td></tr>
+        <tr><td>120</td><td>42.6</td><td>0.435</td><td>9700</td><td>99.56</td><td>0.44</td></tr>
+        <tr><td>150</td><td>58</td><td>0.592</td><td>9700</td><td>99.40</td><td>0.60</td></tr>
+        <tr><td>180</td><td>60</td><td>0.612</td><td>9690</td><td>99.39</td><td>0.62</td></tr>
+      </tbody>
+    </table></div>
+    <div class="prose">
+      <p>ثم يُستخرج التدفق ومعامل الانتشار من قانون فيك الأول في الحالة شبه المستقرة، حيث Δc<sub>R</sub> = 0.612 mmol/L بعد Δt = 10 800 ثانية، وV = 0.300 L، وA = 5.307 cm²، وδ = 75 µm، وΔc = 0.1 mol/L:</p>
+    </div>
+    <div class="eq">$$J = \frac{\Delta c_R\,V}{A\,\Delta t} = \frac{(6.12\times10^{-4}\ \text{mol/L})(0.300\ \text{L})}{(5.307\ \text{cm}^2)(10\,800\ \text{s})} = 3.20\times10^{-9}\ \text{mol cm}^{-2}\,\text{s}^{-1}$$
+    $$D = \frac{J\,\delta}{\Delta c} = \frac{(3.20\times10^{-9})(7.5\times10^{-3}\ \text{cm})}{1.0\times10^{-4}\ \text{mol/cm}^3} = 2.40\times10^{-7}\ \text{cm}^2/\text{s} = 2.40\times10^{-11}\ \text{m}^2/\text{s}$$</div>
+    <div class="eq">$$S\,(\%) = \left(1 - \frac{c_R}{c_F}\right)\times 100,\qquad \eta\,(\%) = \frac{c_R}{c_{F}}\times 100$$</div>
+    <div class="prose">
+      <h3>الخلاصة</h3>
+      <ul>
+        <li>وُصِّف انتقال Cl⁻ عبر غشاء Fumasep® FAA-3-PK-75 في ظروف التيار الصفري.</li>
+        <li>بلغ معامل الانتشار 2.40 × 10⁻¹¹ m²/s: انتقال بطيء ومنتظم يدفعه تدرّج التركيز.</li>
+        <li>بقيت كفاءة الفصل فوق 99.3% طوال التجربة، بينما ارتفعت كفاءة الانتقال من 0.27% إلى 0.62%: يعبر الكلوريد وتُحجز أيونات الصوديوم المشاركة.</li>
+        <li>هذه الأرقام خط أساس لاختبار الأغشية الانتقائية للأيونات أحادية التكافؤ بمحاليل ملحية أعقد، وهي الخطوة التالية نحو RED بالمياه الطبيعية.</li>
+      </ul>
+      <p><a class="btn btn-tinted" href="assets/poster.pdf" target="_blank" rel="noopener">افتح الملصق كاملًا (PDF)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. حول العالم ================= -->
+<section class="section" id="world">
+  <div class="wrap">
+    <p class="eyebrow">٤ · حول العالم</p>
+    <h2>من جرّب ذلك على نطاق واسع</h2>
+    <p class="intro">جُرّب RED على النطاق التجريبي لكنه لم يصل بعد إلى المرحلة التجارية [1]. تُظهر هذه المشاريع الأربعة إلى أين وصل، وما الذي ما زال يعيقه.</p>
+    <div class="cards">
+      <article class="card">
+        <span class="tech">الديال الكهربائي العكسي</span>
+        <h3>هولندا</h3>
+        <p class="where">سد أفسلاوتدايك، بريزاندايك · REDstack وFujifilm وWetsus · منذ 2014</p>
+        <dl><dt>القدرة التصميمية</dt><dd>50 kW</dd><dt>المياه</dt><dd>بحيرة إيسل (0.02–0.05% ملح) مقابل بحر وادن (2.8%)</dd><dt>الافتتاح</dt><dd>26 نوفمبر 2014، الملك فيليم ألكسندر</dd></dl>
+        <p>يفصل سد أفسلاوتدايك، بطول 32 كم، الماء العذب عن المالح أصلًا، فيقع مصدرا التغذية جنبًا إلى جنب. تستخدم المحطة خزانات موازنة ومرشّحات معالجة مسبقة وحزمًا غشائية، بناءً على عقد من أبحاث RED في Wetsus. ولم تُنشر بيانات التشغيل التفصيلية [1]. وفي 2023 حصلت REDstack على 5 ملايين يورو من صندوق وادن لتوسيع الموقع.</p>
+      </article>
+      <article class="card">
+        <span class="tech">الديال الكهربائي العكسي</span>
+        <h3>إيطاليا</h3>
+        <p class="where">ملاحات مارسالا، تراباني، صقلية · مشروع REAPower الأوروبي · 2014</p>
+        <dl><dt>الحزمة الأولى</dt><dd>125 زوج خلايا، 44 × 44 سم، 50 m²</dd><dt>القدرة</dt><dd>40 W، 0.8 W/m²، مستقرة 5 أشهر</dd><dt>التوسعة</dt><dd>حزمتان إضافيتان بـ 500 زوج → 330 W</dd></dl>
+        <p>بدلًا من ماء البحر، استخدم REAPower المحلول الملحي المشبع من الملاحات مقابل ماء قليل الملوحة، فكانت نسبة الملوحة أكبر بكثير. وعولج الاتساخ بمرشّحات 50 و25 و5 ميكرومتر وكلورة صدمية مرتين أسبوعيًا. لكن القدرة لم تتجاوز نحو نصف ما يعطيه NaCl الاصطناعي: كلّفت الأيونات ثنائية التكافؤ في المحلول الطبيعي النصف الآخر [1].</p>
+      </article>
+      <article class="card">
+        <span class="tech pro">التناضح المعوَّق بالضغط (ليس RED)</span>
+        <h3>النرويج</h3>
+        <p class="where">توفته، هوروم · Statkraft مع SINTEF · 2009–2013</p>
+        <dl><dt>القدرة التصميمية</dt><dd>≈10 kW (تحقق بضعة kW)</dd><dt>الغشاء</dt><dd>≈2,000 m²، ≈1 W/m²</dd><dt>الهدف</dt><dd>5 W/m² لتكون اقتصادية</dd></dl>
+        <p>أول محطة طاقة تناضحية في العالم، افتُتحت في نوفمبر 2009. واستخدمت الطريق الآخر لطاقة فرق الملوحة: في PRO يعبر الماء غشاءً شبه منفذ إلى ماء بحر مضغوط، فيدير الحجم الزائد توربينًا. لم تبلغ الأغشية كثافة القدرة المطلوبة قط، فأوقفت Statkraft أعمالها في الطاقة التناضحية عام 2013.</p>
+        <p><strong>PRO مقابل RED:</strong> ينقل PRO الماء ويحتاج إلى مضخات ضغط عالٍ وتوربينات ومبادلات ضغط، بينما ينقل RED الأيونات ويعطي الكهرباء مباشرة عند ضغط منخفض. ودرس توفته لـ RED هو نفسه: كثافة قدرة الغشاء وكلفته تحسمان كل شيء.</p>
+      </article>
+      <article class="card">
+        <span class="tech">الديال الكهربائي العكسي</span>
+        <h3>اليابان</h3>
+        <p class="where">أوكيناوا، بجوار محطة تحلية بالتناضح العكسي · جامعة ياماغوتشي</p>
+        <dl><dt>الحزمة</dt><dd>299 زوج خلايا، 179.4 m²</dd><dt>بحر / نهر</dt><dd>110.6 W، 0.62 W/m²</dd><dt>محلول RO المركّز / نهر</dt><dd>173.2 W، 0.96 W/m²</dd></dl>
+        <p>استخدم فريق ياماغوتشي (هيغا وزملاؤه) المحلولَ المركّز الخارج من محطة التحلية بوصفه التغذية المالحة، فارتفعت القدرة واستُثمر تيار نفايات. وركّبوا أغشية <strong>انتقائية للأيونات أحادية التكافؤ</strong> (Neosepta ACS-8T وCIMS)، فلم تخفض الأيونات ثنائية التكافؤ القدرة إلا بنحو 36%، مقابل نحو 50% في إيطاليا [1]. وهذه هي النتيجة التي يبني عليها مشروعنا.</p>
+      </article>
+    </div>
+    <p class="note">في المشاريع الأربعة تعود القيود نفسها: كثافة قدرة الغشاء، والاتساخ بالمياه الطبيعية، والأيونات متعددة التكافؤ، وكلفة الأغشية. ويستهدف مشروعنا الثالث منها: فهم انتقال الأيونات أحادية التكافؤ حتى يمكن اختيار أغشية، أو تصنيعها، تمرّر Cl⁻ وNa⁺ وتحجز Mg²⁺ وCa²⁺ وSO₄²⁻.</p>
+  </div>
+</section>
+
+<!-- ================= 5. تجربة 2026–2027 ================= -->
+<section class="section" id="trial">
+  <div class="wrap">
+    <p class="eyebrow">٥ · 2026–2027</p>
+    <h2>منصة تجربة RED المخبرية</h2>
+    <p class="intro">خطة العام المقبل: حزمة RED بحجم طاولة المختبر، تُغذّى بمياه تشبه ماء النهر وماء البحر، لقياس الجهد وكثافة القدرة بالأغشية التي نصفها. مرّر المؤشر فوق أي جزء لترى وظيفته.</p>
+    <div class="stage-wrap">
+      <div class="stage" id="rig-stage">
+        <div class="labels"></div>
+        <p class="stage-hint"></p>
+      </div>
+      <div class="controls">
+        <button class="btn btn-plain btn-sm" id="rig-explode" type="button" aria-pressed="false">تفكيك الحزمة</button>
+        <button class="btn btn-plain btn-sm" id="rig-ions" type="button" aria-pressed="true">إظهار الأيونات</button>
+        <button class="btn btn-plain btn-sm" id="rig-pumps" type="button" aria-pressed="true">المضخات</button>
+        <button class="btn btn-plain btn-sm" id="rig-labels" type="button" aria-pressed="true">التسميات</button>
+      </div>
+      <p class="fineprint">تصوّر تصميمي، وليس البناء النهائي. يعرض المقياس المتعدد قيمة محسوبة لحزمة من 10 أزواج خلايا (نحو 1.6 فولت في الدائرة المفتوحة، ونصفها عند حمل مطابق).</p>
+    </div>
+    <div class="soon">
+      <h3>كيف نخطط لتحسينها</h3>
+      <p>قريبًا.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= المراجع ================= -->
+<section class="section" id="refs">
+  <div class="wrap">
+    <p class="eyebrow">المراجع</p>
+    <ol class="refs" dir="ltr">
+      <li>T. Suzuki, Y. Kakihana, M. Higa, “Recovery of salinity gradient energy by reverse electrodialysis (RED): Principle, recent developments, and challenges for commercialization,” <em>Salt and Seawater Science &amp; Technology</em>, vol. 1, pp. 46–60, 2021.</li>
+      <li>H. Rosentreter, C. Scope, T. Oddoy, A. Lerch, J. Meier-Haack, “Monovalent selective ion exchange membranes: A review on preparation processes, applications, performance criteria and sustainability aspects,” <em>Desalination</em>, vol. 599, 118412, 2025.</li>
+      <li>M. Tedesco et al., “Performance of the first reverse electrodialysis pilot plant for power production from saline waters and concentrated brines,” <em>J. Membr. Sci.</em>, vol. 500, pp. 33–45, 2016.</li>
+      <li>S. Mehdizadeh, Y. Kakihana, T. Abo, Q. Yuan, M. Higa, “Power generation performance of a pilot-scale reverse electrodialysis using monovalent selective ion-exchange membranes,” <em>Membranes</em>, vol. 11, 27, 2021.</li>
+      <li>M. Mulder, <em>Basic Principles of Membrane Technology</em>, 2nd ed., Kluwer, 1996.</li>
+      <li>Statkraft osmotic power prototype in Hurum: <a href="https://en.wikipedia.org/wiki/Statkraft_osmotic_power_prototype_in_Hurum" rel="noopener">Wikipedia</a>; <a href="https://www.powermag.com/osmotic-power-makes-headway/" rel="noopener">POWER Magazine</a>.</li>
+      <li>REDstack Blue Energy pilot, Afsluitdijk: <a href="https://theafsluitdijk.com/projects/blue-energy/" rel="noopener">The Afsluitdijk</a>; <a href="https://www.dutchwatersector.com/node/855" rel="noopener">Dutch Water Sector</a>.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+<footer class="footer"><div class="wrap"><p><strong>علم الأغشية</strong> — محمد أنور محرم. قسم الهندسة الكيميائية، كلية الهندسة، جامعة أتيليم، أنقرة.</p><p>المشروع ATÜ-LAP-2526-07، أنجزه محمد أنور محرم وسعد وائل سليمان بتوجيه وإشراف الأستاذ المشارك الدكتور أنور غولر، وبدعم من منسقية مشاريع البحث العلمي في جامعة أتيليم (LAP). والشكر لفريق AREGDA-TTO على مساعدتهم طوال المشروع.</p></div></footer>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Membran Bilimi — Mohammed Anwar Mahram</title>
+<meta name="description" content="Membran bilimine giriş, Fumasep FAA-3-PK-75 anyon değiştirici membranda klorür taşınımı deneyimizin 3B simülasyonu ve ters elektrodiyaliz ile mavi enerji.">
+<meta name="author" content="Mohammed Anwar Mahram">
+<meta property="og:title" content="Membran Bilimi — Mohammed Anwar Mahram">
+<meta property="og:description" content="Membran bilimine giriş, Fumasep FAA-3-PK-75 anyon değiştirici membranda klorür taşınımı deneyimizin 3B simülasyonu ve ters elektrodiyaliz ile mavi enerji.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ghost545a.github.io/membrane-science/tr.html">
+<meta property="og:image" content="https://ghost545a.github.io/membrane-science/assets/salinity-gradient.webp">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="en" href="https://ghost545a.github.io/membrane-science/">
+<link rel="alternate" hreflang="tr" href="https://ghost545a.github.io/membrane-science/tr.html">
+<link rel="alternate" hreflang="ar" href="https://ghost545a.github.io/membrane-science/ar.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="css/site.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/OrbitControls.js":"./vendor/OrbitControls.js"}}</script>
+<script>window.I18N = {"play": "Oynat", "pause": "Duraklat", "replay": "Yeniden", "phaseA": "Gerçek veri · 180 dk, 10 sn'de", "phaseB": "Varsayımsal · dengeye kadar", "min": "dk", "days": "gün", "feed": "Besleme · 0,1 M NaCl", "receiver": "Alıcı · DI su", "membrane": "FAA-3-PK-75 membran", "port": "Numune ağzı", "stirrer": "Karıştırıcı çubuk", "clamp": "Kıskaç", "kCond": "Alıcı iletkenliği", "kConc": "Alıcıdaki Cl⁻", "kS": "Ayırma verimi S", "kEta": "Transfer verimi η", "kFeed": "Besleme iletkenliği", "kD": "Difüzyon katsayısı D", "chartA": "Alıcıdaki Cl⁻ (mmol/L) – zaman (dk) · noktalar ölçüm", "chartB": "Alıcıdaki Cl⁻ (mmol/L) – zaman (gün) · varsayımsal", "hint": "Döndürmek için sürükleyin · yakınlaştırmak için kaydırın", "noWebGL": "Bu 3B görünüm WebGL gerektiriyor; tarayıcınızda kapalı.", "explode": "Yığını aç", "ions": "İyonları göster", "pumps": "Pompalar", "labels": "Etiketler", "river": "Nehir suyu tankı", "sea": "Deniz suyu tankı", "pump": "Peristaltik pompa", "filter": "Kartuş filtre", "stack": "RED yığını", "rinse": "Elektrot yıkama", "load": "Yük + multimetre", "outlet": "Acı su çıkışı", "tips": {"river": "Düşük tuzluluklu besleme (≈0,017 M NaCl, nehir suyu gibi). Seyreltik bölmelerden geçer.", "sea": "Yüksek tuzluluklu besleme (≈0,5 M NaCl, deniz suyu gibi). Derişik bölmelerden geçer.", "pump": "Peristaltik pompa: ince bölmelerdeki akış hızını belirler (kalış süresi ile pompalama kaybı dengesi).", "filter": "Kartuş filtre (5 µm): parçacıkların ara parçaları ve membranları kirletmesini önler.", "stack": "İki elektrot arasında ara parçalarla dizilmiş, dönüşümlü katyon (CEM) ve anyon (AEM) değiştirici membranlar.", "cem": "Katyon değiştirici membran (CEM): sabit −SO₃⁻ grupları Na⁺'yı geçirir, Cl⁻'yi iter.", "aem": "Anyon değiştirici membran (AEM): sabit −NR₃⁺ grupları Cl⁻'yi geçirir, Na⁺'yı iter.", "rinse": "Elektrot yıkama çözeltisi: bir redoks çifti (örn. Fe²⁺/Fe³⁺) iyonik akımı elektron akımına çevirir.", "load": "Dış yük ve multimetre: redoks tepkimelerinden gelen elektronlar burada iş yapar.", "outlet": "İki akım da acı su olarak çıkar: tuzluluk farkı harcanmıştır."}};</script>
+<script type="module" src="js/cell.js"></script>
+<script type="module" src="js/rig.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">İçeriğe geç</a>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">Membran Bilimi</a>
+    <nav class="nav-links" aria-label="Sections"><a href="#intro">Membranlar</a><a href="#blue">Mavi enerji</a><a href="#project">Projemiz</a><a href="#world">Dünyada</a><a href="#trial">2026–27 deneme</a></nav>
+    <div class="langs" role="group" aria-label="Language"><a href="index.html" hreflang="en" lang="en">English</a><a href="tr.html" hreflang="tr" lang="tr" aria-current="true">Türkçe</a><a href="ar.html" hreflang="ar" lang="ar">العربية</a></div>
+  </div>
+</header>
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap">
+    <h1>Membran Bilimi</h1>
+    <p class="by">Mohammed Anwar Mahram</p>
+    <p class="lede">İnce seçici filmler suyu, tuzları ve gazları nasıl ayırır; aynı fizik, nehir suyunun deniz suyuyla buluşmasını nasıl elektriğe çevirebilir.</p>
+    <p class="credit">Atılım Üniversitesi ATÜ-LAP-2526-07 numaralı araştırma projesi; Doç. Dr. Enver Güler'in rehberliği ve danışmanlığında Mohammed Anwar Mahram ve Saed Wael Suleiman tarafından yürütülmüştür.</p>
+    <div class="actions">
+      <a class="btn btn-fill" href="#project">Membranı izle</a>
+      <a class="btn btn-tinted" href="assets/poster.pdf" target="_blank" rel="noopener">Posteri oku (PDF)</a>
+    </div>
+  </div>
+</section>
+<!-- ================= 1. Membranlar ================= -->
+<section class="section" id="intro">
+  <div class="wrap">
+    <p class="eyebrow">1 · Giriş</p>
+    <h2>Membran nedir ve neden işe yarar</h2>
+    <p class="intro">Membran, iki faz arasında seçici bir bariyerdir. Bir itici kuvvet altında bazı türler diğerlerinden daha hızlı geçer; membran ayırmasının tamamı bu hız farkına dayanır.</p>
+
+    <div class="prose">
+      <h3>Kısa bir tarihçe</h3>
+      <p>1748'de Abbé Nollet suyun bir domuz mesanesinden şaraba geçtiğini gördü: kayda geçen ilk osmoz. Adolf Fick difüzyon yasasını 1855'te yazdı, Thomas Graham 1866'da gazların kauçuktan geçişini inceledi, van 't Hoff ise 1887'de osmotik basınca termodinamik biçimini verdi. Frederick Donnan 1911'de bir jeldeki sabit yüklerin aynı işaretli iyonları neden dışarıda tuttuğunu açıkladı. Alan 1960'ların başında bir sanayiye dönüştü: Sidney Loeb ve Srinivasa Sourirajan ilk asimetrik selüloz asetat membranı döktü. Gözenekli bir destek üzerindeki yaklaşık 0,1–0,2 µm kalınlığındaki yoğun deri, ters ozmozla tuzdan arındırmayı uygulanabilir kıldı. Sentetik iyon değiştirici membranlar (Juda ve McRae, 1950) elektrodiyalizi mümkün kıldı; 1954'te R. E. Pattle aynı membranların tuzlu ve tatlı sudan elektrik üretebileceğini gösterdi. Bu sitenin arkasındaki fikir budur.</p>
+
+      <h3>İtici kuvvetler</h3>
+      <p>Her membran prosesi, geçen türü karşıya iten kuvvetle tanımlanır. Bir \(i\) türünün akısı, kimyasal (veya elektrokimyasal) potansiyeli \(\mu_i\)'nin gradyanıyla orantılıdır:</p>
+    </div>
+    <div class="eq">$$J_i = -L_i\,\frac{d\mu_i}{dx},\qquad \mu_i = \mu_i^0 + RT\ln a_i + \bar V_i\,p + z_iF\varphi$$
+      <p class="where">\(a_i\) aktivite, \(p\) basınç, \(\varphi\) elektrik potansiyeli, \(z_i\) yük sayısı. Her terim bir proses ailesine karşılık gelir.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>İtici kuvvet</th><th>Prosesler</th><th>Tipik kullanım</th></tr></thead>
+      <tbody>
+        <tr><td>Basınç farkı Δp</td><td>Mikrofiltrasyon, ultrafiltrasyon, nanofiltrasyon, ters ozmoz</td><td class="wrap-ok">Berraklaştırma, protein derişikleştirme, yumuşatma, tuzdan arındırma</td></tr>
+        <tr><td>Derişim farkı Δc</td><td>Diyaliz, difüzyon diyalizi, ileri ozmoz, pervaporasyon</td><td class="wrap-ok">Hemodiyaliz, asit geri kazanımı, çözücü kurutma</td></tr>
+        <tr><td>Elektrik potansiyeli ΔE</td><td>Elektrodiyaliz (ED), ters elektrodiyaliz (RED)</td><td class="wrap-ok">Acı su arıtma, tuz üretimi, mavi enerji</td></tr>
+        <tr><td>Sıcaklık farkı ΔT</td><td>Membran distilasyonu</td><td class="wrap-ok">Düşük dereceli ısıyla tuzlu su derişikleştirme</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="prose">
+      <h3>Basınçla çalışan membranlar: kabadan sıkıya</h3>
+      <p>Basınçla çalışan aile, neyi tuttuğuna göre sıralanır. Gözenekler küçüldükçe tutulan çözünenlerin osmotik basıncının da yenilmesi gerekir, bu yüzden işletme basıncı artar.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Proses</th><th>Gözenek / kesme</th><th>Basınç (bar)</th><th>Tutulan</th><th>Mekanizma</th></tr></thead>
+      <tbody>
+        <tr><td>Mikrofiltrasyon</td><td>0,1–10 µm</td><td>0,1–2</td><td>Bakteriler, askıda katılar</td><td>Eleme</td></tr>
+        <tr><td>Ultrafiltrasyon</td><td>2–100 nm</td><td>1–10</td><td>Proteinler, virüsler, koloidler</td><td>Eleme</td></tr>
+        <tr><td>Nanofiltrasyon</td><td>≈1 nm</td><td>5–20</td><td>İki değerlikli iyonlar, şekerler</td><td>Eleme + yük (Donnan)</td></tr>
+        <tr><td>Ters ozmoz</td><td>yoğun, &lt;0,5 nm</td><td>10–80</td><td>Tek değerlikli tuzlar</td><td>Çözünme–difüzyon</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="prose">
+      <h4>Gözenek akışı</h4>
+      <p>Gözenekli membranlarda çözücü kapilerlerden akar; düz silindirik gözenekler için akıyı Hagen–Poiseuille denklemi verir:</p>
+    </div>
+    <div class="eq">$$J = \frac{\varepsilon\, r^2}{8\,\eta\,\tau}\,\frac{\Delta p}{\Delta x}$$
+      <p class="where">\(\varepsilon\) gözeneklilik, \(r\) gözenek yarıçapı, \(\eta\) viskozite, \(\tau\) kıvrımlılık, \(\Delta x\) kalınlık.</p></div>
+    <div class="prose">
+      <h4>Çözünme–difüzyon</h4>
+      <p>Yoğun membranlarda kalıcı gözenek yoktur. Molekül besleme yüzeyinde polimerde çözünür, derişim gradyanı boyunca difüzlenir ve diğer yüzeyden ayrılır. Ayırma hem çözünürlük hem de difüzivite farklarından gelir. Ters ozmozda bu, osmotik basıncı aşan basınçla sürülen bir su akısı ve yalnızca derişim farkına bağlı bir tuz akısı verir:</p>
+    </div>
+    <div class="eq">$$J_w = A\,(\Delta p - \Delta\pi),\qquad J_s = B\,(c_f - c_p),\qquad \pi \approx i\,c\,RT$$
+      <p class="where">van 't Hoff bağıntısıyla deniz suyunun (≈0,6 M NaCl eşdeğeri) osmotik basıncı yaklaşık 27 bar'dır. RED ve PRO'nun geri kazanmaya çalıştığı serbest enerji de budur.</p></div>
+
+    <div class="prose">
+      <h3>Difüzyon: Fick'in birinci yasası</h3>
+      <p>Yalnızca derişim farkı etki ettiğinde, \(\delta\) kalınlığındaki bir membrandan yarı-kararlı haldeki akı:</p>
+    </div>
+    <div class="eq">$$J = -D\,\frac{dc}{dx} \;\approx\; D\,\frac{\Delta c}{\delta}$$
+      <p class="where">Bölüm 3'te membranımızın klorür difüzyon katsayısını bulmak için kullandığımız denklem budur.</p></div>
+
+    <div class="prose">
+      <h3>İyon değiştirici membranlar</h3>
+      <p>İyon değiştirici membranlar (IEM), yüksek derişimde sabit yüklü gruplar taşıyan yoğun polimer filmlerdir; tipik olarak kuru polimerin gramı başına 1–3 mmol. Sabit yük, şişmiş polimer içinde hareket edebilen zıt işaretli hareketli <em>karşı iyonlarla</em> dengelenir. Sabit yükle aynı işaretli iyonlar, yani <em>eş iyonlar</em>, dışarı itilir.</p>
+      <ul>
+        <li><strong>Katyon değiştirici membranlar (CEM)</strong> genellikle sülfonik asit (−SO₃⁻) gibi sabit negatif gruplar taşır. Na⁺, K⁺, Ca²⁺ geçer; Cl⁻ itilir.</li>
+        <li><strong>Anyon değiştirici membranlar (AEM)</strong> genellikle kuaterner amonyum (−NR₃⁺) gibi sabit pozitif gruplar taşır. Cl⁻, SO₄²⁻ geçer; Na⁺ itilir. Fumasep® FAA-3-PK-75 membranımız bir AEM'dir.</li>
+      </ul>
+    </div>
+    <figure class="diagram" style="max-width:44rem">
+      <svg viewBox="0 0 640 230" role="img" aria-label="Anyon değiştirici membranda Donnan dışlaması: klorür geçer, sodyum itilir.">
+        <rect x="250" y="20" width="140" height="190" rx="10" fill="#c98a2b" opacity="0.28"/>
+        <g font-size="15" font-weight="700" fill="#c98a2b">
+          <text x="270" y="55">+</text><text x="330" y="45">+</text><text x="365" y="75">+</text><text x="285" y="105">+</text><text x="345" y="125">+</text><text x="268" y="160">+</text><text x="325" y="175">+</text><text x="365" y="195">+</text>
+        </g>
+        <circle cx="120" cy="80" r="14" fill="#1f9d55"/><text x="112" y="85" style="fill:#fff" font-size="11">Cl⁻</text>
+        <circle cx="520" cy="80" r="14" fill="#1f9d55"/><text x="512" y="85" style="fill:#fff" font-size="11">Cl⁻</text>
+        <path d="M140 80 H500" stroke="#1f9d55" stroke-width="3" fill="none" marker-end="url(#ah1)"/>
+        <circle cx="120" cy="165" r="14" fill="#8e44ad"/><text x="110" y="170" style="fill:#fff" font-size="11">Na⁺</text>
+        <path d="M140 165 H238" stroke="#8e44ad" stroke-width="3" fill="none"/>
+        <path d="M238 165 q-14 0 -30 22" stroke="#8e44ad" stroke-width="3" fill="none" marker-end="url(#ah2)"/>
+        <text x="40" y="30" class="muted">derişik taraf</text><text x="480" y="30" class="muted">seyreltik taraf</text>
+        <text x="262" y="226" class="muted">AEM, sabit −NR₃⁺</text>
+        <defs>
+          <marker id="ah1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1f9d55"/></marker>
+          <marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8e44ad"/></marker>
+        </defs>
+      </svg>
+      <figcaption>Anyon değiştirici membranda Donnan dışlaması. Sabit pozitif yükler klorür karşı iyonlarını geçirir, sodyum eş iyonlarını elektrostatik olarak iter.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h4>Donnan dengesi ve membran potansiyeli</h4>
+      <p>Bir çözelti ile IEM arasındaki ara yüzeyde her hareketli iyonun elektrokimyasal potansiyeli iki tarafta eşittir. Membran zaten yüksek derişimde karşı iyon tuttuğundan bir ara yüzey potansiyeli, yani Donnan potansiyeli oluşur ve eş iyonları dışarıda tutar:</p>
+    </div>
+    <div class="eq">$$E_{Don} = \frac{RT}{z_iF}\ln\frac{a_i^{s}}{a_i^{m}}$$</div>
+    <div class="prose">
+      <p>Tam seçici bir membranı farklı aktivitedeki iki çözelti arasına koyarsanız iki Donnan potansiyeli artık birbirini götürmez. Aradaki fark membran potansiyelidir; Nernst denklemiyle verilir ve görünür seçici geçirgenlik \(\alpha\) ile ölçeklenir:</p>
+    </div>
+    <div class="eq">$$E_m = \alpha\,\frac{RT}{zF}\ln\frac{a_{c}}{a_{d}},\qquad \alpha = \frac{t^{m}_{ct} - t^{s}_{ct}}{1 - t^{s}_{ct}}$$
+      <p class="where">\(t_{ct}^m\), \(t_{ct}^s\): karşı iyonun membrandaki ve çözeltideki taşınım sayıları. \(\alpha = 1\) ideal membrandır; eş iyon sızıntısı bunu düşürür.</p></div>
+
+    <div class="prose">
+      <h4>Önemli özellikler</h4>
+      <ul>
+        <li><strong>Seçici geçirgenlik α</strong>: eş iyonların ne kadar iyi dışlandığı. Yüksek tuz derişiminde Donnan dışlaması zayıfladıkça düşer.</li>
+        <li><strong>Alan direnci</strong> (Ω·cm²): birim alan başına omik kayıp. İyi RED membranları yaklaşık 1–3 Ω·cm² civarındadır.</li>
+        <li><strong>İyon değiştirme kapasitesi ve su alımı</strong>: daha fazla sabit yük direnci düşürür ama polimeri şişirir; bu da sabit yükü seyreltir ve seçicilikten götürür.</li>
+        <li><strong>Tek değerlikli iyon seçiciliği</strong>: Cl⁻'nin SO₄²⁻'ye, Na⁺'nın Mg²⁺ ve Ca²⁺'ya tercih edilmesi. Projemizin merkezindedir (bölüm 2).</li>
+        <li><strong>Kalınlık</strong>: daha ince membran daha düşük direnç ama daha fazla tuz ve su difüzyonu demektir.</li>
+      </ul>
+
+      <h3>Elektrodiyaliz ve tersi</h3>
+      <p>Elektrodiyalizde uygulanan gerilim, iyonları dönüşümlü CEM ve AEM'lerden oluşan bir yığından geçirir; böylece her ikinci bölmenin tuzu azalır. Ters elektrodiyaliz aynı yığını tersine çalıştırır: dönüşümlü bölmelere derişik ve seyreltik çözelti verin, iyonlar kendiliğinden difüzlenir; katyonlar CEM'lerden bir yöne, anyonlar AEM'lerden diğer yöne geçer. Ayrılan yük bir gerilimdir ve uç elektrotlardaki redoks tepkimeleri bunu dış yükten geçen bir elektron akımına çevirir.</p>
+
+      <h3>Uygulamada neler ters gider</h3>
+      <ul>
+        <li><strong>Derişim polarizasyonu</strong>: membranın hemen yanındaki çözelti, ana çözeltiye göre fakirleşir veya zenginleşir; bu da etkin itici kuvveti düşürür. Karıştırma, ara parçalar ve daha yüksek hız bu sınır tabakayı inceltir; hücremizin iki tarafının da karıştırılmasının nedeni budur.</li>
+        <li><strong>Kirlenme (fouling)</strong>: organik madde, koloidler, biyofilmler ve kireç (CaCO₃, Mg(OH)₂) membranı ve ara parçaları tıkar. Doğal sular ön arıtma gerektirir.</li>
+        <li><strong>Çok değerlikli iyonlar</strong>: Mg²⁺, Ca²⁺ ve SO₄²⁻ membran direncini artırır ve kendi gradyanlarına karşı hareket edebilir ("yokuş yukarı taşınım"), gerilimi düşürür.</li>
+      </ul>
+      <p>Ayrıntılı anlatım için Mulder'in <em>Basic Principles of Membrane Technology</em> ve Tanaka'nın <em>Ion Exchange Membranes</em> kitaplarına bakın.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. Mavi enerji ================= -->
+<section class="section" id="blue">
+  <div class="wrap">
+    <p class="eyebrow">2 · Mavi enerji</p>
+    <h2>Nehirlerin denizle buluştuğu yerden güç</h2>
+    <p class="intro">Bir nehrin denize döküldüğü her yerde tatlı ve tuzlu su karışır ve serbest enerjiyi ısı olarak bırakır. Ters elektrodiyaliz bunun bir kısmını elektrik olarak yakalar.</p>
+    <figure>
+      <img src="assets/salinity-gradient.webp" width="1600" height="873" loading="lazy" alt="Açık renkli tatlı suyun koyu deniz suyuyla buluştuğu bir nehir ağzı çizimi.">
+      <figcaption>Posterimizin 1. şekli: deniz suyu ile tatlı su arasındaki tuzluluk farkı, ters elektrodiyalizde iyon taşınımını sürer.</figcaption>
+    </figure>
+    <div class="prose">
+      <p>Bir metreküp nehir suyunun denize karışması yaklaşık 2,2 MJ Gibbs serbest enerjisi açığa çıkarır; bu, aynı suyun 225 m yüksekliğindeki bir barajdan düşmesine denktir. Dünyadaki tüm nehirler hesaba katıldığında tuzluluk farkı enerjisinin teorik potansiyeli yaklaşık 2,6 TW'tır; teknik ve fiziksel sınırlar eklendiğinde yaklaşık 983 GW'a düşer [1]. Bu, gelgit enerjisinin çok üzerinde ve dalga enerjisiyle karşılaştırılabilir düzeydedir [1, 2].</p>
+      <h3>Bir RED yığını nasıl çalışır</h3>
+      <p>RED yığını, hücre çiftlerinden oluşan bir dizidir. Her çift bir CEM, bir derişik bölme, bir AEM ve bir seyreltik bölmeden oluşur; ara parçalar 100–300 µm'lik aralıkları açık tutar. Na⁺ deniz suyundan CEM üzerinden bir elektroda, Cl⁻ AEM üzerinden diğerine gider. Tüm membranların gerilimleri seri olarak toplanır.</p>
+    </div>
+    <figure>
+      <img src="assets/red-stack.webp" width="1600" height="718" loading="lazy" alt="RED yığını şeması: uçlarda anot ve katot, dönüşümlü CEM ve AEM, nehir suyu ve deniz suyu bölmeleri, Fe2+/Fe3+ elektrolit, yük olarak ampul.">
+      <figcaption>Posterimizin 2. şekli: üç hücre çiftli bir RED yığını. Elektrot yıkama çözeltisindeki Fe²⁺/Fe³⁺ çifti, iyonik akımı yükten geçen elektron akımına çevirir.</figcaption>
+    </figure>
+    <div class="eq">$$E_{OCV} = N\,\frac{RT}{F}\left(\alpha_{CEM} + \alpha_{AEM}\right)\ln\frac{a_{sea}}{a_{river}},\qquad P_{max} = \frac{E_{OCV}^2}{4\,R_{stack}}$$
+      <p class="where">\(N\) hücre çifti, yaklaşık 0,5 M deniz suyu ve yaklaşık 0,017 M nehir suyu ile ideal bir hücre çifti kabaca 0,17 V verir. Güç, dış yük yığının iç direncine eşit olduğunda en yüksektir. Performans, m² membran başına W cinsinden güç yoğunluğu olarak verilir.</p></div>
+    <div class="prose">
+      <h3>Tek değerlikli iyon seçiciliği neden önemli</h3>
+      <p>Gerçek deniz suyu saf NaCl değildir. Mg²⁺, Ca²⁺ ve SO₄²⁻ membran direncini artırır; bir iki değerlikli iyon iki tek değerlikli iyonla yer değiştirebildiği için kendi gradyanlarına karşı hareket edip gerilimi düşürebilirler. Doğal suyla beslenen pilot tesislerde bu, gücü sentetik NaCl çözeltilerinin verdiğinin yaklaşık yarısına indirmiştir [1]. Cl⁻'yi (veya Na⁺'yı) çok değerlikli iyonlara tercih eden membranlar gücü yüksek tutmalıdır. Seçicilik elektrostatik itme, boyut dışlaması, hidrasyon enerjisi ve hareketlilik farkları ve membranın yüzey modifikasyonu ile sağlanabilir [2].</p>
+      <p>Bunların hiçbiri ölçülmeden önce, standart bir membranın tek bir tek değerlikli iyonu nasıl taşıdığına dair güvenilir bir referansa ihtiyacımız var. Deneyimiz bu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. Projemiz ================= -->
+<section class="section" id="project">
+  <div class="wrap">
+    <p class="eyebrow">3 · 2025–26 projemiz · ATÜ-LAP-2526-07</p>
+    <h2>Anyon değiştirici membrandan klorür geçişi</h2>
+    <p class="intro">Mavi Enerji: membranlarda tek değerlikli iyon seçiciliğinin tuzluluk farkı enerjisi üretimine etkisi. Doç. Dr. Enver Güler'in rehberliği ve danışmanlığında Mohammed Anwar Mahram ve Saed Wael Suleiman.</p>
+
+    <div class="stage-wrap">
+      <div class="stage" id="cell-stage">
+        <div class="phase-tag" id="cell-phase"></div>
+        <div class="labels"></div>
+        <p class="stage-hint"></p>
+      </div>
+      <div class="controls">
+        <button class="btn btn-fill btn-sm" id="cell-play" type="button">Oynat</button>
+        <button class="btn btn-plain btn-sm" id="cell-replay" type="button">Yeniden</button>
+        <div class="scrub"><input type="range" id="cell-scrub" min="0" max="1000" value="0" aria-label="Simülasyon zamanı"><output id="cell-time">0 dk</output></div>
+        <div class="legend"><span><i style="background:var(--cl)"></i>Cl⁻ geçer</span><span><i style="background:var(--na)"></i>Na⁺ engellenir</span></div>
+      </div>
+      <div class="hud">
+        <div class="readouts">
+          <div class="readout"><div class="k" data-k="kCond"></div><div class="v" id="r-cond">0</div></div>
+          <div class="readout"><div class="k" data-k="kConc"></div><div class="v" id="r-conc">0</div></div>
+          <div class="readout"><div class="k" data-k="kS"></div><div class="v" id="r-s">–</div></div>
+          <div class="readout"><div class="k" data-k="kEta"></div><div class="v" id="r-eta">0</div></div>
+          <div class="readout"><div class="k" data-k="kFeed"></div><div class="v" id="r-feed">9880</div></div>
+          <div class="readout"><div class="k" data-k="kD"></div><div class="v">2.40 × 10⁻¹¹ <small>m²/s</small></div></div>
+        </div>
+        <div class="chart-card"><div class="k" id="cell-chart-k"></div><canvas id="cell-chart" height="200"></canvas></div>
+      </div>
+      <p class="fineprint">İlk 10 saniye ölçülen 180 dakikayı yeniden oynatır. Sonraki 10 saniye varsayımsaldır: aynı Fick modelini ölçülen D ile, iki taraf aynı derişime ulaşana kadar (her biri yaklaşık 0,05 M) sürdürür. Düşük derişimde ilk izler görünsün diye küre sayısı büyütülmüştür; paneldeki değerler gerçektir.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Yöntem</h3>
+      <p>Fumasep® FAA-3-PK-75 anyon değiştirici membrandan iyon taşınımını incelemek için iki bölmeli bir difüzyon hücresi kullanıldı. Etkin çapı 2,6 cm (açık alanı 5,31 cm²) olan membran iki bölme arasına sıkıştırılarak onları tamamen ayırdı. Bir taraf besleme olarak 300 mL 0,1 M NaCl, diğer taraf alıcı olarak 300 mL deiyonize su içeriyordu. Derişimi homojen tutmak ve membran yüzeylerinde derişim polarizasyonunu sınırlamak için iki taraf da sürekli manyetik olarak karıştırıldı.</p>
+      <p>İki tarafın iletkenliği 180 dakika boyunca her 30 dakikada bir kaydedildi; her örneklemede sıcaklık da ölçüldü ve tüm ölçümler ortam laboratuvar koşullarında yapıldı. Deneyden önce membran, hidrate olması ve klorür formuna dönüşmesi için 0,1 M NaCl içinde bekletildi.</p>
+      <h4>Kullanılan ekipman</h4>
+      <ul>
+        <li>İki bölmeli difüzyon hücresi</li>
+        <li>Fumasep® FAA-3-PK-75 anyon değiştirici membran (75 µm, 2,6 cm açık çap)</li>
+        <li>İki manyetik karıştırıcı</li>
+        <li>Prob ve dahili termometreli iletkenlik ölçer</li>
+      </ul>
+    </div>
+    <div class="fig-row">
+      <figure><img src="assets/membrane-pretreatment.webp" width="1000" height="750" loading="lazy" alt="Tuz çözeltisi dolu bir beherde bekleyen kahverengi membran."><figcaption>Şekil 3: ön işlem sırasında 0,1 M NaCl içinde bekleyen FAA-3-PK-75 membran.</figcaption></figure>
+      <figure><img src="assets/cell-photo.webp" width="1200" height="900" loading="lazy" alt="Donör/besleme ve DI su/alıcı etiketli, kırmızı kapaklı iki cam şişe; aralarındaki kıskaç seçici membranı tutuyor."><figcaption>Şekil 4: iki bölmeli difüzyon hücresi; donör (besleme) ve alıcı (DI su) membranla ayrılmış. Yukarıdaki 3B model buna göre yapıldı.</figcaption></figure>
+    </div>
+
+    <div class="prose">
+      <h3>Sonuçlar</h3>
+      <p>Alıcı iletkenliği, Kohlrausch'un iyonların bağımsız göçü yasasıyla, yaklaşık 20 °C'de NaCl için 98 S·cm²/mol molar iletkenlik kullanılarak derişime çevrildi:</p>
+    </div>
+    <div class="eq">$$c\;(\text{mmol/L}) = \frac{\kappa\;(\mu\text{S/cm})}{\Lambda_m},\qquad \Lambda_m = \lambda_{Na^+} + \lambda_{Cl^-} \approx 98\ \text{S·cm}^2/\text{mol}$$</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Zaman (dk)</th><th>Alıcı (µS/cm)</th><th>Alıcıdaki Cl⁻ (mmol/L)</th><th>Besleme (µS/cm)</th><th>S (%)</th><th>η (%)</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td><td>9880</td><td>–</td><td>0</td></tr>
+        <tr><td>30</td><td>26</td><td>0,265</td><td>9880</td><td>99,74</td><td>0,27</td></tr>
+        <tr><td>60</td><td>26</td><td>0,265</td><td>9710</td><td>99,73</td><td>0,27</td></tr>
+        <tr><td>90</td><td>40,5</td><td>0,413</td><td>9710</td><td>99,58</td><td>0,42</td></tr>
+        <tr><td>120</td><td>42,6</td><td>0,435</td><td>9700</td><td>99,56</td><td>0,44</td></tr>
+        <tr><td>150</td><td>58</td><td>0,592</td><td>9700</td><td>99,40</td><td>0,60</td></tr>
+        <tr><td>180</td><td>60</td><td>0,612</td><td>9690</td><td>99,39</td><td>0,62</td></tr>
+      </tbody>
+    </table></div>
+    <div class="prose">
+      <p>Akı ve difüzyon katsayısı, yarı-kararlı halde Fick'in birinci yasasından elde edilir; Δt = 10 800 s sonunda Δc<sub>R</sub> = 0,612 mmol/L, V = 0,300 L, A = 5,307 cm², δ = 75 µm ve Δc = 0,1 mol/L:</p>
+    </div>
+    <div class="eq">$$J = \frac{\Delta c_R\,V}{A\,\Delta t} = \frac{(6.12\times10^{-4}\ \text{mol/L})(0.300\ \text{L})}{(5.307\ \text{cm}^2)(10\,800\ \text{s})} = 3.20\times10^{-9}\ \text{mol cm}^{-2}\,\text{s}^{-1}$$
+    $$D = \frac{J\,\delta}{\Delta c} = \frac{(3.20\times10^{-9})(7.5\times10^{-3}\ \text{cm})}{1.0\times10^{-4}\ \text{mol/cm}^3} = 2.40\times10^{-7}\ \text{cm}^2/\text{s} = 2.40\times10^{-11}\ \text{m}^2/\text{s}$$</div>
+    <div class="eq">$$S\,(\%) = \left(1 - \frac{c_R}{c_F}\right)\times 100,\qquad \eta\,(\%) = \frac{c_R}{c_{F}}\times 100$$</div>
+    <div class="prose">
+      <h3>Sonuç</h3>
+      <ul>
+        <li>Fumasep® FAA-3-PK-75 membrandan Cl⁻ transferi sıfır akım koşulunda karakterize edildi.</li>
+        <li>Difüzyon katsayısı 2,40 × 10⁻¹¹ m²/s bulundu: derişim gradyanıyla sürülen yavaş ve düzenli bir taşınım.</li>
+        <li>Ayırma verimi deney boyunca %99,3'ün üzerinde kalırken transfer verimi %0,27'den %0,62'ye yükseldi: klorür geçerken sodyum eş iyonları tutuldu.</li>
+        <li>Bu değerler, daha karmaşık tuz çözeltileriyle tek değerlikli seçici membranları test etmek için bir referanstır; doğal sularla RED'e giden yolda bir sonraki adım budur.</li>
+      </ul>
+      <p><a class="btn btn-tinted" href="assets/poster.pdf" target="_blank" rel="noopener">Posterin tamamını aç (PDF)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. Dünyada ================= -->
+<section class="section" id="world">
+  <div class="wrap">
+    <p class="eyebrow">4 · Dünyada</p>
+    <h2>Bunu büyük ölçekte kim denedi</h2>
+    <p class="intro">RED pilot ölçekte test edildi ama henüz ticari değil [1]. Bu dört proje ne kadar yol alındığını ve onu hâlâ neyin tuttuğunu gösteriyor.</p>
+    <div class="cards">
+      <article class="card">
+        <span class="tech">Ters elektrodiyaliz</span>
+        <h3>Hollanda</h3>
+        <p class="where">Afsluitdijk, Breezanddijk · REDstack, Fujifilm, Wetsus · 2014–</p>
+        <dl><dt>Tasarım gücü</dt><dd>50 kW</dd><dt>Sular</dt><dd>IJssel Gölü (%0,02–0,05 tuz) – Wadden Denizi (%2,8)</dd><dt>Açılış</dt><dd>26 Kasım 2014, Kral Willem-Alexander</dd></dl>
+        <p>32 km'lik Afsluitdijk seddi tatlı ve tuzlu suyu zaten ayırıyor, yani iki besleme yan yana. Pilot tesis tampon tanklar, ön arıtma filtreleri ve membran yığınları kullanıyor ve Wetsus'taki on yıllık RED araştırmasına dayanıyor. Ayrıntılı işletme verileri kamuya açıklanmadı [1]. 2023'te REDstack, tesisi genişletmek için Wadden Fonu'ndan 5 milyon € aldı.</p>
+      </article>
+      <article class="card">
+        <span class="tech">Ters elektrodiyaliz</span>
+        <h3>İtalya</h3>
+        <p class="where">Marsala tuzlası, Trapani, Sicilya · AB REAPower projesi · 2014</p>
+        <dl><dt>İlk yığın</dt><dd>125 hücre çifti, 44 × 44 cm, 50 m²</dd><dt>Güç</dt><dd>40 W, 0,8 W/m², 5 ay kararlı</dd><dt>Büyütme</dt><dd>+2 adet 500 hücre çiftli yığın → 330 W</dd></dl>
+        <p>REAPower deniz suyu yerine tuzladan gelen doymuş tuzlu suyu acı suya karşı kullandı; böylece tuzluluk oranı çok daha büyüktü. Kirlenmeye karşı 50, 25 ve 5 µm filtreler ve haftada iki kez şok klorlama uygulandı. Ancak güç, sentetik NaCl ile elde edilenin yalnızca yaklaşık yarısıydı: doğal tuzlu sudaki iki değerlikli iyonlar diğer yarıya mal oldu [1].</p>
+      </article>
+      <article class="card">
+        <span class="tech pro">Basınç geciktirmeli ozmoz (RED değil)</span>
+        <h3>Norveç</h3>
+        <p class="where">Tofte, Hurum · Statkraft ve SINTEF · 2009–2013</p>
+        <dl><dt>Tasarım gücü</dt><dd>≈10 kW (birkaç kW'a ulaşıldı)</dd><dt>Membran</dt><dd>≈2.000 m², ≈1 W/m²</dd><dt>Hedef</dt><dd>Ekonomik olmak için 5 W/m²</dd></dl>
+        <p>Kasım 2009'da açılan dünyanın ilk ozmotik enerji santrali. Diğer tuzluluk farkı yolunu kullandı: PRO'da su yarı geçirgen bir membrandan basınçlandırılmış deniz suyuna geçer ve artan hacim bir türbini döndürür. Membranlar gereken güç yoğunluğuna hiç ulaşamadı ve Statkraft 2013'te ozmotik enerji çalışmalarını durdurdu.</p>
+        <p><strong>PRO ve RED:</strong> PRO suyu taşır ve yüksek basınç pompaları, türbinler ve basınç değiştiriciler gerektirir; RED iyonları taşır ve düşük basınçta doğrudan elektrik verir. Tofte'nin RED için dersi aynı: her şeyi membranın güç yoğunluğu ve maliyeti belirler.</p>
+      </article>
+      <article class="card">
+        <span class="tech">Ters elektrodiyaliz</span>
+        <h3>Japonya</h3>
+        <p class="where">Okinawa, bir deniz suyu RO tesisinin yanında · Yamaguchi Üniversitesi</p>
+        <dl><dt>Yığın</dt><dd>299 hücre çifti, 179,4 m²</dd><dt>Deniz / nehir</dt><dd>110,6 W, 0,62 W/m²</dd><dt>RO tuzlu suyu / nehir</dt><dd>173,2 W, 0,96 W/m²</dd></dl>
+        <p>Yamaguchi grubu (Higa ve ekibi), tuzlu besleme olarak bir tuzdan arındırma tesisinin derişik atık suyunu kullandı; bu hem gücü artırıyor hem de bir atık akımını değerlendiriyor. <strong>Tek değerlikli seçici</strong> membranlar (Neosepta ACS-8T ve CIMS) kullandılar. Bu sayede iki değerlikli iyonlar gücü yalnızca yaklaşık %36 düşürdü; İtalya'da bu oran yaklaşık %50 idi [1]. Projemizin üzerine kurulduğu sonuç budur.</p>
+      </article>
+    </div>
+    <p class="note">Dördünde de aynı sınırlar karşımıza çıkıyor: membran güç yoğunluğu, doğal sularla kirlenme, çok değerlikli iyonlar ve membran maliyeti. Projemiz üçüncüsünü hedefliyor: tek değerlikli taşınımı anlamak, böylece Cl⁻ ve Na⁺'yı geçirip Mg²⁺, Ca²⁺ ve SO₄²⁻'yi tutan membranlar seçilebilsin ya da üretilebilsin.</p>
+  </div>
+</section>
+
+<!-- ================= 5. 2026–27 deneme ================= -->
+<section class="section" id="trial">
+  <div class="wrap">
+    <p class="eyebrow">5 · 2026–27</p>
+    <h2>Laboratuvar RED deneme düzeneğimiz</h2>
+    <p class="intro">Gelecek yılın planı: karakterize ettiğimiz membranlarla gerilim ve güç yoğunluğunu ölçmek için nehir suyu ve deniz suyu benzeri sularla beslenen tezgâh ölçekli bir RED yığını. Ne işe yaradığını görmek için bir parçanın üzerine gelin.</p>
+    <div class="stage-wrap">
+      <div class="stage" id="rig-stage">
+        <div class="labels"></div>
+        <p class="stage-hint"></p>
+      </div>
+      <div class="controls">
+        <button class="btn btn-plain btn-sm" id="rig-explode" type="button" aria-pressed="false">Yığını aç</button>
+        <button class="btn btn-plain btn-sm" id="rig-ions" type="button" aria-pressed="true">İyonları göster</button>
+        <button class="btn btn-plain btn-sm" id="rig-pumps" type="button" aria-pressed="true">Pompalar</button>
+        <button class="btn btn-plain btn-sm" id="rig-labels" type="button" aria-pressed="true">Etiketler</button>
+      </div>
+      <p class="fineprint">Bir tasarım konsepti, son hali değil. Multimetre, 10 hücre çiftli bir yığın için modellenmiş bir değer gösterir (açık devrede yaklaşık 1,6 V, eşleşmiş yükte bunun yarısı).</p>
+    </div>
+    <div class="soon">
+      <h3>Nasıl geliştirmeyi planlıyoruz</h3>
+      <p>Yakında.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Kaynaklar ================= -->
+<section class="section" id="refs">
+  <div class="wrap">
+    <p class="eyebrow">Kaynaklar</p>
+    <ol class="refs">
+      <li>T. Suzuki, Y. Kakihana, M. Higa, “Recovery of salinity gradient energy by reverse electrodialysis (RED): Principle, recent developments, and challenges for commercialization,” <em>Salt and Seawater Science &amp; Technology</em>, vol. 1, pp. 46–60, 2021.</li>
+      <li>H. Rosentreter, C. Scope, T. Oddoy, A. Lerch, J. Meier-Haack, “Monovalent selective ion exchange membranes: A review on preparation processes, applications, performance criteria and sustainability aspects,” <em>Desalination</em>, vol. 599, 118412, 2025.</li>
+      <li>M. Tedesco et al., “Performance of the first reverse electrodialysis pilot plant for power production from saline waters and concentrated brines,” <em>J. Membr. Sci.</em>, vol. 500, pp. 33–45, 2016.</li>
+      <li>S. Mehdizadeh, Y. Kakihana, T. Abo, Q. Yuan, M. Higa, “Power generation performance of a pilot-scale reverse electrodialysis using monovalent selective ion-exchange membranes,” <em>Membranes</em>, vol. 11, 27, 2021.</li>
+      <li>M. Mulder, <em>Basic Principles of Membrane Technology</em>, 2nd ed., Kluwer, 1996.</li>
+      <li>Statkraft Hurum ozmotik enerji prototipi: <a href="https://en.wikipedia.org/wiki/Statkraft_osmotic_power_prototype_in_Hurum" rel="noopener">Wikipedia</a>; <a href="https://www.powermag.com/osmotic-power-makes-headway/" rel="noopener">POWER Magazine</a>.</li>
+      <li>REDstack Blue Energy pilotu, Afsluitdijk: <a href="https://theafsluitdijk.com/projects/blue-energy/" rel="noopener">The Afsluitdijk</a>; <a href="https://www.dutchwatersector.com/node/855" rel="noopener">Dutch Water Sector</a>.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+<footer class="footer"><div class="wrap"><p><strong>Membran Bilimi</strong> — Mohammed Anwar Mahram. Kimya Mühendisliği Bölümü, Mühendislik Fakültesi, Atılım Üniversitesi, Ankara.</p><p>ATÜ-LAP-2526-07 projesi; Doç. Dr. Enver Güler'in rehberliği ve danışmanlığında Mohammed Anwar Mahram ve Saed Wael Suleiman tarafından yürütülmüş, Atılım Üniversitesi Bilimsel Araştırma Projeleri Koordinatörlüğü (LAP) tarafından desteklenmiştir. Proje boyunca verdikleri destek için AREGDA-TTO'ya teşekkür ederiz.</p></div></footer>
+</body>
+</html>
