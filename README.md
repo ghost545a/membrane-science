@@ -2,7 +2,7 @@
 
 By Mohammed Anwar Mahram. An introduction to membrane science, a three.js simulation of our ATÜ-LAP-2526-07 diffusion-cell experiment (Fumasep FAA-3-PK-75, 0.1 M NaCl vs DI water), RED pilot plants around the world, and our 2026–27 lab RED trial rig.
 
-Project by Mohammed Anwar Mahram and Saed Wael Suleiman under the guidance and supervision of Assoc. Prof. Dr. Enver Güler, Atılım University.
+Project by Mohammed Anwar Mahram and Saed Wael Suleiman under the guidance and supervision of Assoc. Prof. Dr. Enver Güler, Atılım University (bachelor's student research project ATÜ-LAP-2526-07).
 
 Live: https://ghost545a.github.io/membrane-science/
 

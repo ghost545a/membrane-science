@@ -18,13 +18,13 @@
 <link rel="alternate" hreflang="ar" href="https://ghost545a.github.io/membrane-science/ar.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous">
-<link rel="stylesheet" href="css/site.css?v=d258fb2e">
+<link rel="stylesheet" href="css/site.css?v=9decfea1">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous"
   onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
 <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/OrbitControls.js":"./vendor/OrbitControls.js","./js/stage.js":"./js/stage.js?v=d1422b7c"}}</script>
 <script>window.I18N = {"play": "Oynat", "pause": "Duraklat", "replay": "Yeniden", "phaseA": "Gerçek veri · 180 dk, 10 sn'de", "phaseB": "Varsayımsal · dengeye kadar", "min": "dk", "days": "gün", "feed": "Besleme · 0,1 M NaCl", "receiver": "Alıcı · DI su", "membrane": "FAA-3-PK-75 membran", "port": "Numune ağzı", "stirrer": "Karıştırıcı çubuk", "clamp": "Kıskaç", "kCond": "Alıcı iletkenliği", "kConc": "Alıcıdaki Cl⁻", "kS": "Ayırma verimi S", "kEta": "Transfer verimi η", "kFeed": "Besleme iletkenliği", "kD": "Difüzyon katsayısı D", "chartA": "Alıcıdaki Cl⁻ (mmol/L) – zaman (dk) · noktalar ölçüm", "chartB": "Alıcıdaki Cl⁻ (mmol/L) – zaman (gün) · varsayımsal", "hint": "Döndürmek için sürükleyin · yakınlaştırmak için kaydırın", "noWebGL": "Bu 3B görünüm WebGL gerektiriyor; tarayıcınızda kapalı.", "explode": "Yığını aç", "ions": "İyonları göster", "pumps": "Pompalar", "labels": "Etiketler", "river": "Nehir suyu tankı", "sea": "Deniz suyu tankı", "pump": "Peristaltik pompa", "filter": "Kartuş filtre", "stack": "RED yığını", "rinse": "Elektrot yıkama", "load": "Yük + multimetre", "outlet": "Acı su çıkışı", "tips": {"river": "Düşük tuzluluklu besleme (≈0,017 M NaCl, nehir suyu gibi). Seyreltik bölmelerden geçer.", "sea": "Yüksek tuzluluklu besleme (≈0,5 M NaCl, deniz suyu gibi). Derişik bölmelerden geçer.", "pump": "Peristaltik pompa: ince bölmelerdeki akış hızını belirler (kalış süresi ile pompalama kaybı dengesi).", "filter": "Kartuş filtre (5 µm): parçacıkların ara parçaları ve membranları kirletmesini önler.", "stack": "İki elektrot arasında ara parçalarla dizilmiş, dönüşümlü katyon (CEM) ve anyon (AEM) değiştirici membranlar.", "cem": "Katyon değiştirici membran (CEM): sabit −SO₃⁻ grupları Na⁺'yı geçirir, Cl⁻'yi iter.", "aem": "Anyon değiştirici membran (AEM): sabit −NR₃⁺ grupları Cl⁻'yi geçirir, Na⁺'yı iter.", "rinse": "Elektrot yıkama çözeltisi: bir redoks çifti (örn. Fe²⁺/Fe³⁺) iyonik akımı elektron akımına çevirir.", "load": "Dış yük ve multimetre: redoks tepkimelerinden gelen elektronlar burada iş yapar.", "outlet": "İki akım da acı su olarak çıkar: tuzluluk farkı harcanmıştır."}};</script>
-<script type="module" src="js/cell.js?v=18e54767"></script>
+<script type="module" src="js/cell.js?v=66905eaa"></script>
 <script type="module" src="js/rig.js?v=31119e7b"></script>
 </head>
 <body>
@@ -43,7 +43,7 @@
       <h1>Membran Bilimi</h1>
       <p class="by">Mohammed Anwar Mahram</p>
       <p class="lede">İnce seçici filmler suyu, tuzları ve gazları nasıl ayırır; aynı fizik, nehir suyunun deniz suyuyla buluşmasını nasıl elektriğe çevirebilir.</p>
-      <p class="credit">Atılım Üniversitesi ATÜ-LAP-2526-07 numaralı araştırma projesi; Doç. Dr. Enver Güler'in rehberliği ve danışmanlığında Mohammed Anwar Mahram ve Saed Wael Suleiman tarafından yürütülmüştür.</p>
+      <p class="credit">Atılım Üniversitesi ATÜ-LAP-2526-07 numaralı lisans öğrencisi araştırma projesi; Doç. Dr. Enver Güler'in rehberliği ve danışmanlığında Mohammed Anwar Mahram ve Saed Wael Suleiman tarafından yürütülmüştür.</p>
       <div class="actions">
         <a class="btn btn-fill" href="#project">Membranı izle</a>
         <a class="btn btn-tinted" href="assets/poster.pdf" target="_blank" rel="noopener">Posteri oku (PDF)</a>
@@ -114,7 +114,7 @@
       <p>Yalnızca derişim farkı etki ettiğinde, \(\delta\) kalınlığındaki bir membrandan yarı-kararlı haldeki akı:</p>
     </div>
     <div class="eq">$$J = -D\,\frac{dc}{dx} \;\approx\; D\,\frac{\Delta c}{\delta}$$
-      <p class="where">Bölüm 3'te membranımızın klorür difüzyon katsayısını bulmak için kullandığımız denklem budur.</p></div>
+      <p class="where">Bölüm 3'te membranımızın görünür tuz difüzyon katsayısını bulmak için kullandığımız denklem budur.</p></div>
 
     <div class="prose">
       <h3>İyon değiştirici membranlar</h3>
@@ -192,7 +192,7 @@
       <figcaption>Posterimizin 1. şekli: deniz suyu ile tatlı su arasındaki tuzluluk farkı, ters elektrodiyalizde iyon taşınımını sürer.</figcaption>
     </figure>
     <div class="prose">
-      <p>Bir metreküp nehir suyunun denize karışması yaklaşık 2,2 MJ Gibbs serbest enerjisi açığa çıkarır; bu, aynı suyun 225 m yüksekliğindeki bir barajdan düşmesine denktir. Dünyadaki tüm nehirler hesaba katıldığında tuzluluk farkı enerjisinin teorik potansiyeli yaklaşık 2,6 TW'tır; teknik ve fiziksel sınırlar eklendiğinde yaklaşık 983 GW'a düşer [1]. Bu, gelgit enerjisinin çok üzerinde ve dalga enerjisiyle karşılaştırılabilir düzeydedir [1, 2].</p>
+      <p>Bir metreküp nehir suyunun denize karışması kabaca 2–3 MJ Gibbs serbest enerjisi açığa çıkarır (yayımlanmış tahminler varsayımlara göre değişir); bu, aynı suyun 200–300 m yüksekliğindeki bir barajdan düşmesine denktir. Dünyadaki tüm nehirler hesaba katıldığında tuzluluk farkı enerjisinin teorik potansiyeli yaklaşık 2,6 TW'tır; teknik ve fiziksel sınırlar eklendiğinde yaklaşık 983 GW'a düşer [1]. Bu, gelgit enerjisinin çok üzerinde ve dalga enerjisiyle karşılaştırılabilir düzeydedir [1, 2].</p>
       <h3>Bir RED yığını nasıl çalışır</h3>
       <p>RED yığını, hücre çiftlerinden oluşan bir dizidir. Her çift bir CEM, bir derişik bölme, bir AEM ve bir seyreltik bölmeden oluşur; ara parçalar 100–300 µm'lik aralıkları açık tutar. Na⁺ deniz suyundan CEM üzerinden bir elektroda, Cl⁻ AEM üzerinden diğerine gider. Tüm membranların gerilimleri seri olarak toplanır.</p>
     </div>
@@ -205,7 +205,7 @@
     <div class="prose">
       <h3>Tek değerlikli iyon seçiciliği neden önemli</h3>
       <p>Gerçek deniz suyu saf NaCl değildir. Mg²⁺, Ca²⁺ ve SO₄²⁻ membran direncini artırır; bir iki değerlikli iyon iki tek değerlikli iyonla yer değiştirebildiği için kendi gradyanlarına karşı hareket edip gerilimi düşürebilirler. Doğal suyla beslenen pilot tesislerde bu, gücü sentetik NaCl çözeltilerinin verdiğinin yaklaşık yarısına indirmiştir [1]. Cl⁻'yi (veya Na⁺'yı) çok değerlikli iyonlara tercih eden membranlar gücü yüksek tutmalıdır. Seçicilik elektrostatik itme, boyut dışlaması, hidrasyon enerjisi ve hareketlilik farkları ve membranın yüzey modifikasyonu ile sağlanabilir [2].</p>
-      <p>Bunların hiçbiri ölçülmeden önce, standart bir membranın tek bir tek değerlikli iyonu nasıl taşıdığına dair güvenilir bir referansa ihtiyacımız var. Deneyimiz bu.</p>
+      <p>Bunların hiçbiri test edilmeden önce bir referansa ihtiyacımız var: yalnızca derişim farkı etki ederken tek değerlikli bir iyon olan klorürün NaCl çözeltisinden standart bir anyon değiştirici membrana nasıl geçtiği. Deneyimiz bu; çok değerlikli iyonları ve seçiciliği test etmeye giden ilk adım.</p>
     </div>
   </div>
 </section>
@@ -213,7 +213,7 @@
 <!-- ================= 3. Projemiz ================= -->
 <section class="section" id="project">
   <div class="wrap">
-    <p class="eyebrow">3 · 2025–26 projemiz · ATÜ-LAP-2526-07</p>
+    <p class="eyebrow">3 · 2025–26 lisans araştırma projemiz · ATÜ-LAP-2526-07</p>
     <h2>Anyon değiştirici membrandan klorür geçişi</h2>
     <p class="intro">Mavi Enerji: membranlarda tek değerlikli iyon seçiciliğinin tuzluluk farkı enerjisi üretimine etkisi. Doç. Dr. Enver Güler'in rehberliği ve danışmanlığında Mohammed Anwar Mahram ve Saed Wael Suleiman.</p>
 
@@ -227,7 +227,7 @@
         <button class="btn btn-fill btn-sm" id="cell-play" type="button">Oynat</button>
         <button class="btn btn-plain btn-sm" id="cell-replay" type="button">Yeniden</button>
         <div class="scrub"><input type="range" id="cell-scrub" min="0" max="1000" value="0" aria-label="Simülasyon zamanı"><output id="cell-time">0 dk</output></div>
-        <div class="legend"><span><i style="background:var(--cl)"></i>Cl⁻ geçer</span><span><i style="background:var(--na)"></i>Na⁺ engellenir</span></div>
+        <div class="legend"><span><i style="background:var(--cl)"></i>Cl⁻ geçer</span><span><i style="background:var(--na)"></i>Na⁺ büyük ölçüde engellenir</span></div>
       </div>
       <div class="hud">
         <div class="readouts">
@@ -240,7 +240,7 @@
         </div>
         <div class="chart-card"><div class="k" id="cell-chart-k"></div><canvas id="cell-chart" height="200"></canvas></div>
       </div>
-      <p class="fineprint">İlk 10 saniye ölçülen 180 dakikayı yeniden oynatır. Sonraki 10 saniye varsayımsaldır: aynı Fick modelini ölçülen D ile, iki taraf aynı derişime ulaşana kadar (her biri yaklaşık 0,05 M) sürdürür. Düşük derişimde ilk izler görünsün diye küre sayısı büyütülmüştür; paneldeki değerler gerçektir.</p>
+      <p class="sim-text">İlk on saniye ölçülen 180 dakikayı yeniden oynatır; sonraki on saniye aynı Fick modelini ölçülen D ile, iki şişe de aynı derişime (her biri yaklaşık 0,05 M) ulaşana kadar sürdürür. Karşı iyon olan Cl⁻ membrana kolayca girer, Na⁺ ise büyük ölçüde yüzeyden geri döner. Animasyon, projenin hedefini, yani Na⁺'yı olabildiğince güçlü tutan bir membranı göstermek için her beş Cl⁻'ye karşılık bir Na⁺ geçişi çizer. Gerçek hücrede alıcı elektriksel olarak nötr kalır; bu yüzden gelen her Cl⁻ yanında bir katyon getirir ve ölçtüğümüz iletkenlik bu tuzdur. Panel ölçülen değerleri gösterir; ilk iyonlar görünsün diye düşük derişimde küreler büyütülmüştür.</p>
     </div>
 
     <div class="prose">
@@ -262,19 +262,22 @@
 
     <div class="prose">
       <h3>Sonuçlar</h3>
-      <p>Alıcı iletkenliği, Kohlrausch'un iyonların bağımsız göçü yasasıyla, yaklaşık 20 °C'de NaCl için 98 S·cm²/mol molar iletkenlik kullanılarak derişime çevrildi:</p>
+      <p>Alıcı iletkenliği, yaklaşık 20 °C'de NaCl için 98 S·cm²/mol molar iletkenlik kullanılarak Kohlrausch yasasıyla derişime çevrildi. İletkenlik ortamdaki tüm iyonları sayar; bu nedenle sonuç, geçen tuzun derişimidir: Cl⁻ ve ona eşlik eden katyon. Çok seyreltik alıcıda NaCl'nin molar iletkenliği biraz daha yüksektir (sonsuz seyreltmede ve 25 °C'de yaklaşık 126 S·cm²/mol); bu yüzden bu derişimler ve D yaklaşık %20'ye kadar daha düşük olabilir. Sonraki deneylerde NaCl standartlarıyla hazırlanacak bir kalibrasyon doğrusu bunu netleştirecek.</p>
     </div>
-    <div class="eq">$$c\;(\text{mmol/L}) = \frac{\kappa\;(\mu\text{S/cm})}{\Lambda_m},\qquad \Lambda_m = \lambda_{Na^+} + \lambda_{Cl^-} \approx 98\ \text{S·cm}^2/\text{mol}$$</div>
+    <div class="eq">$$c\;(\text{mmol/L}) = \frac{\kappa\;(\mu\text{S/cm})}{\Lambda_m},\qquad \Lambda_m = \lambda_{Na^+} + \lambda_{Cl^-} \approx 98\ \text{S}\cdot\text{cm}^2/\text{mol}$$</div>
+    <div class="prose">
+      <p>Tabloda ölçülen iletkenlikler ile bunlardan türetilen derişimler, ayırma verimi S ve transfer verimi η yer alır; hepsi c = κ / 98 ile hesaplanmıştır.</p>
+    </div>
     <div class="table-wrap"><table>
       <thead><tr><th>Zaman (dk)</th><th>Alıcı (µS/cm)</th><th>Alıcıdaki Cl⁻ (mmol/L)</th><th>Besleme (µS/cm)</th><th>S (%)</th><th>η (%)</th></tr></thead>
       <tbody>
         <tr><td>0</td><td>0</td><td>0</td><td>9880</td><td>–</td><td>0</td></tr>
-        <tr><td>30</td><td>26</td><td>0,265</td><td>9880</td><td>99,74</td><td>0,27</td></tr>
+        <tr><td>30</td><td>26</td><td>0,265</td><td>9880</td><td>99,74</td><td>0,26</td></tr>
         <tr><td>60</td><td>26</td><td>0,265</td><td>9710</td><td>99,73</td><td>0,27</td></tr>
         <tr><td>90</td><td>40,5</td><td>0,413</td><td>9710</td><td>99,58</td><td>0,42</td></tr>
         <tr><td>120</td><td>42,6</td><td>0,435</td><td>9700</td><td>99,56</td><td>0,44</td></tr>
         <tr><td>150</td><td>58</td><td>0,592</td><td>9700</td><td>99,40</td><td>0,60</td></tr>
-        <tr><td>180</td><td>60</td><td>0,612</td><td>9690</td><td>99,39</td><td>0,62</td></tr>
+        <tr><td>180</td><td>60</td><td>0,612</td><td>9690</td><td>99,38</td><td>0,62</td></tr>
       </tbody>
     </table></div>
     <div class="prose">
@@ -282,15 +285,22 @@
     </div>
     <div class="eq">$$J = \frac{\Delta c_R\,V}{A\,\Delta t} = \frac{(6.12\times10^{-4}\ \text{mol/L})(0.300\ \text{L})}{(5.307\ \text{cm}^2)(10\,800\ \text{s})} = 3.20\times10^{-9}\ \text{mol cm}^{-2}\,\text{s}^{-1}$$
     $$D = \frac{J\,\delta}{\Delta c} = \frac{(3.20\times10^{-9})(7.5\times10^{-3}\ \text{cm})}{1.0\times10^{-4}\ \text{mol/cm}^3} = 2.40\times10^{-7}\ \text{cm}^2/\text{s} = 2.40\times10^{-11}\ \text{m}^2/\text{s}$$</div>
+    <div class="prose">
+      <p>Bu hesap 180. dakika noktasını kullanır. Yedi noktanın tamamından geçen en küçük kareler doğrusu D = 2,24 × 10⁻¹¹ m²/s verir (%95 güven aralığı yaklaşık 1,5–3,0 × 10⁻¹¹ m²/s, R² = 0,93); bu, son nokta değerine yakındır. Küçük pozitif kesişim (0,08 mmol/L), büyük olasılıkla ön işlemden sonra membranda tutulan tuzun hızlı bir ilk salınımına işaret eder. Buradaki D, tuz için görünür bir katsayıdır: karıştırılan sınır tabakalarını ve tuzun membrana dağılımını içerir ve nominal 75 µm kalınlığa dayanır.</p>
+    </div>
     <div class="eq">$$S\,(\%) = \left(1 - \frac{c_R}{c_F}\right)\times 100,\qquad \eta\,(\%) = \frac{c_R}{c_{F}}\times 100$$</div>
     <div class="prose">
+      <p>S %99,3'ün üzerinde kalırken η %0,26'dan %0,62'ye yükseldi. İkisi de tuzun ne kadar yavaş hareket ettiğini anlatır: üç saat sonra hücre dengeden hâlâ çok uzaktır; yoğun ve güçlü yüklü bir membrandan beklenen de budur. Bir sonraki adım olan iki iyonu ayrı ölçmek, bu hızları bir seçicilik ölçüsüne dönüştürecek.</p>
       <h3>Sonuç</h3>
       <ul>
-        <li>Fumasep® FAA-3-PK-75 membrandan Cl⁻ transferi sıfır akım koşulunda karakterize edildi.</li>
-        <li>Difüzyon katsayısı 2,40 × 10⁻¹¹ m²/s bulundu: derişim gradyanıyla sürülen yavaş ve düzenli bir taşınım.</li>
-        <li>Ayırma verimi deney boyunca %99,3'ün üzerinde kalırken transfer verimi %0,27'den %0,62'ye yükseldi: klorür geçerken sodyum eş iyonları tutuldu.</li>
-        <li>Bu değerler, daha karmaşık tuz çözeltileriyle tek değerlikli seçici membranları test etmek için bir referanstır; doğal sularla RED'e giden yolda bir sonraki adım budur.</li>
+        <li>Fumasep® FAA-3-PK-75 anyon değiştirici membrandan klorür taşınımı sıfır akımda, iletkenlikle karakterize edildi.</li>
+        <li>Görünür difüzyon katsayısı son noktadan 2,40 × 10⁻¹¹ m²/s (tüm noktalara uydurmayla 2,24 × 10⁻¹¹ m²/s) bulundu: derişim gradyanıyla sürülen yavaş ve düzenli bir taşınım.</li>
+        <li>180 dakika sonunda besleme derişiminin yalnızca %0,62'si alıcıya ulaştı; bu, Na⁺ eş iyonunun güçlü Donnan dışlamasının tuzun sızma hızını sınırlamasıyla uyumludur.</li>
+        <li>Bu değerler 2026–27 çalışmasının referansıdır.</li>
       </ul>
+      <h3>Sonraki adımlar</h3>
+      <p>Sonraki deneyler doğrudan bu referansın üzerine kurulur. Alıcıda Cl⁻'yi (titrasyon veya iyon seçici elektrotla) ve Na⁺'yı (ICP-OES veya AAS ile) ayrı ölçmek her iyondan ne kadar geçtiğini gösterecek; membran potansiyeli ölçümleri de taşınım sayısını ve seçici geçirgenliği verecek. Bir iletkenlik kalibrasyon doğrusu, sıcaklık kontrolü (bu deneyde çözeltiler yaklaşık 16 °C'den 21 °C'ye ısındı) ve kör hücreyle en az üç tekrar D'ye bir belirsizlik kazandıracak. İki şişenin birlikte izlenmesi tuz dengesini de kapatacak: bu deneyde besleme yaklaşık 0,58 mmol NaCl kaybederken alıcı 0,18 mmol kazandı.</p>
+      <p>Ardından projenin yanıtlamak için kurulduğu sorular geliyor: tek değerlikli seçiciliği test etmek için beslemeye Mg²⁺, Ca²⁺ ve SO₄²⁻ eklemek ve bir RED yığınında alan direncini ve güç yoğunluğunu ölçmek (bölüm 5).</p>
       <p><a class="btn btn-tinted" href="assets/poster.pdf" target="_blank" rel="noopener">Posterin tamamını aç (PDF)</a></p>
     </div>
   </div>
@@ -308,7 +318,7 @@
         <h3>Hollanda</h3>
         <p class="where">Afsluitdijk, Breezanddijk · REDstack, Fujifilm, Wetsus · 2014–</p>
         <dl><dt>Tasarım gücü</dt><dd>50 kW</dd><dt>Sular</dt><dd>IJssel Gölü (%0,02–0,05 tuz) – Wadden Denizi (%2,8)</dd><dt>Açılış</dt><dd>26 Kasım 2014, Kral Willem-Alexander</dd></dl>
-        <p>32 km'lik Afsluitdijk seddi tatlı ve tuzlu suyu zaten ayırıyor, yani iki besleme yan yana. Pilot tesis tampon tanklar, ön arıtma filtreleri ve membran yığınları kullanıyor ve Wetsus'taki on yıllık RED araştırmasına dayanıyor. Ayrıntılı işletme verileri kamuya açıklanmadı [1]. 2023'te REDstack, tesisi genişletmek için Wadden Fonu'ndan 5 milyon € aldı.</p>
+        <p>32 km'lik Afsluitdijk seddi tatlı ve tuzlu suyu zaten ayırıyor, yani iki besleme yan yana. Pilot tesis tampon tanklar, ön arıtma filtreleri ve membran yığınları kullanıyor ve Wetsus'taki on yıllık RED araştırmasına dayanıyor. Ayrıntılı işletme verileri kamuya açıklanmadı [1]. 2023'te bir Hollanda sektör dergisi, tesisin genişletilmesi için Wadden Fonu'ndan 5 milyon € ayrıldığını bildirdi.</p>
       </article>
       <article class="card">
         <span class="tech">Ters elektrodiyaliz</span>
@@ -321,7 +331,7 @@
         <span class="tech pro">Basınç geciktirmeli ozmoz (RED değil)</span>
         <h3>Norveç</h3>
         <p class="where">Tofte, Hurum · Statkraft ve SINTEF · 2009–2013</p>
-        <dl><dt>Tasarım gücü</dt><dd>≈10 kW (birkaç kW'a ulaşıldı)</dd><dt>Membran</dt><dd>≈2.000 m², ≈1 W/m²</dd><dt>Hedef</dt><dd>Ekonomik olmak için 5 W/m²</dd></dl>
+        <dl><dt>Tasarım gücü</dt><dd>10 kW; 2–4 kW bildirildi (SINTEF: 2 kW)</dd><dt>Membran</dt><dd>≈2.000 m², ≈1 W/m²</dd><dt>Hedef</dt><dd>Ekonomik olmak için 5 W/m²</dd></dl>
         <p>Kasım 2009'da açılan dünyanın ilk ozmotik enerji santrali. Diğer tuzluluk farkı yolunu kullandı: PRO'da su yarı geçirgen bir membrandan basınçlandırılmış deniz suyuna geçer ve artan hacim bir türbini döndürür. Membranlar gereken güç yoğunluğuna hiç ulaşamadı ve Statkraft 2013'te ozmotik enerji çalışmalarını durdurdu.</p>
         <p><strong>PRO ve RED:</strong> PRO suyu taşır ve yüksek basınç pompaları, türbinler ve basınç değiştiriciler gerektirir; RED iyonları taşır ve düşük basınçta doğrudan elektrik verir. Tofte'nin RED için dersi aynı: her şeyi membranın güç yoğunluğu ve maliyeti belirler.</p>
       </article>
@@ -330,7 +340,7 @@
         <h3>Japonya</h3>
         <p class="where">Okinawa, bir deniz suyu RO tesisinin yanında · Yamaguchi Üniversitesi</p>
         <dl><dt>Yığın</dt><dd>299 hücre çifti, 179,4 m²</dd><dt>Deniz / nehir</dt><dd>110,6 W, 0,62 W/m²</dd><dt>RO tuzlu suyu / nehir</dt><dd>173,2 W, 0,96 W/m²</dd></dl>
-        <p>Yamaguchi grubu (Higa ve ekibi), tuzlu besleme olarak bir tuzdan arındırma tesisinin derişik atık suyunu kullandı; bu hem gücü artırıyor hem de bir atık akımını değerlendiriyor. <strong>Tek değerlikli seçici</strong> membranlar (Neosepta ACS-8T ve CIMS) kullandılar. Bu sayede iki değerlikli iyonlar gücü yalnızca yaklaşık %36 düşürdü; İtalya'da bu oran yaklaşık %50 idi [1]. Projemizin üzerine kurulduğu sonuç budur.</p>
+        <p>Yamaguchi grubu (Higa ve ekibi), tuzlu besleme olarak bir tuzdan arındırma tesisinin derişik atık suyunu kullandı; bu hem gücü artırıyor hem de bir atık akımını değerlendiriyor. <strong>Tek değerlikli seçici</strong> membranlar (Neosepta ACS-8T ve CIMS) kullandılar. Sentetik NaCl'ye göre iki değerlikli iyonlar gücü yaklaşık %36 düşürdü; İtalya'da bu oran yaklaşık %50 idi [1]. Derleme, daha küçük kaybı tek değerlikli seçici membranlara bağlıyor. İki pilot tesis beslemeler, konum ve yığın tasarımı bakımından da farklıydı; bu yüzden bu kontrollü bir karşılaştırma değil, olası bir açıklamadır ve projemizin yöneldiği soru da budur.</p>
       </article>
     </div>
     <p class="note">Dördünde de aynı sınırlar karşımıza çıkıyor: membran güç yoğunluğu, doğal sularla kirlenme, çok değerlikli iyonlar ve membran maliyeti. Projemiz üçüncüsünü hedefliyor: tek değerlikli taşınımı anlamak, böylece Cl⁻ ve Na⁺'yı geçirip Mg²⁺, Ca²⁺ ve SO₄²⁻'yi tutan membranlar seçilebilsin ya da üretilebilsin.</p>
@@ -380,6 +390,6 @@
 </section>
 
 </main>
-<footer class="footer"><div class="wrap"><p><strong>Membran Bilimi</strong> — Mohammed Anwar Mahram. Kimya Mühendisliği Bölümü, Mühendislik Fakültesi, Atılım Üniversitesi, Ankara.</p><p>ATÜ-LAP-2526-07 projesi; Doç. Dr. Enver Güler'in rehberliği ve danışmanlığında Mohammed Anwar Mahram ve Saed Wael Suleiman tarafından yürütülmüş, Atılım Üniversitesi Bilimsel Araştırma Projeleri Koordinatörlüğü (LAP) tarafından desteklenmiştir. Proje boyunca verdikleri destek için AREGDA-TTO'ya teşekkür ederiz.</p></div></footer>
+<footer class="footer"><div class="wrap"><p><strong>Membran Bilimi</strong> — Mohammed Anwar Mahram. Kimya Mühendisliği Bölümü, Mühendislik Fakültesi, Atılım Üniversitesi, Ankara.</p><p>ATÜ-LAP-2526-07 numaralı lisans öğrencisi araştırma projesi; Doç. Dr. Enver Güler'in rehberliği ve danışmanlığında Mohammed Anwar Mahram ve Saed Wael Suleiman tarafından yürütülmüş, Atılım Üniversitesi Bilimsel Araştırma Projeleri Koordinatörlüğü (LAP) tarafından desteklenmiştir. Proje boyunca verdikleri destek için AREGDA-TTO'ya teşekkür ederiz.</p></div></footer>
 </body>
 </html>

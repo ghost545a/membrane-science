@@ -308,3 +308,6 @@ figcaption { margin-top: 10px; font-size: 0.88rem; color: var(--text-2); max-wid
   .stage-hero { aspect-ratio: 4 / 3; }
 }
 @media (max-width: 640px) { .stage-hero { aspect-ratio: 4 / 3; } }
+
+/* Text under the simulation: part of the narrative, not a footnote. */
+.sim-text { max-width: var(--prose); margin: 18px 0 0; color: var(--text-2); }

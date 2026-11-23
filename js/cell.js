@@ -1,6 +1,8 @@
 // The 2025–26 experiment as a 3D two-compartment diffusion cell.
 // 0–10 s replays the measured 180 min; 10–20 s is a hypothetical Fickian
-// run to equilibrium with the measured D. Cl⁻ crosses the AEM, Na⁺ bounces.
+// run to equilibrium with the measured D. Cl⁻ crosses; Na⁺ (the co-ion) is
+// mostly turned back. Idealised to show the project's goal: only 1 Na⁺ is
+// drawn crossing per 5 Cl⁻ (in the real cell they cross in equal numbers).
 import { createStage, glass, T, reduceMotion } from "./stage.js";
 
 // Two copies: the full experiment in section 3, and a looping "ambient" one
@@ -47,6 +49,7 @@ function stateAt(t) {
 }
 // Spheres shown in the receiver: magnified at low concentration, exact at equilibrium.
 const N = 240;
+const NA_PER_CL = 1 / 5; // idealised: Na⁺ drawn crossing per Cl⁻
 const shownFrac = (cr) => (50 * (1 - Math.exp(-cr / 2.5))) / 100;
 
 mount(document.getElementById("hero-stage"), true);
@@ -231,9 +234,9 @@ function build(S, el, ambient) {
   if (!ambient) {
     document.querySelectorAll("#project [data-k]").forEach((n) => { n.textContent = T[n.dataset.k] || n.textContent; });
     replayBtn.textContent = T.replay || "Replay";
-    playBtn.addEventListener("click", () => { if (t >= END) restart(); setPlay(!playing); });
-    replayBtn.addEventListener("click", () => { restart(); setPlay(true); });
-    scrub.addEventListener("input", () => { t = (scrub.value / 1000) * END; sync(true); });
+    playBtn.addEventListener("click", () => { started = true; if (t >= END) restart(); setPlay(!playing); });
+    replayBtn.addEventListener("click", () => { started = true; restart(); setPlay(true); });
+    scrub.addEventListener("input", () => { started = true; t = (scrub.value / 1000) * END; sync(true); });
   }
   setPlay(false);
   function restart() {
@@ -320,26 +323,32 @@ function build(S, el, ambient) {
     return st;
   }
 
-  // Keep the number of Cl⁻ in (or heading to) the receiver equal to the target.
-  function sync(instant) {
-    const target = Math.round(shownFrac(stateAt(t).cr) * N);
-    let have = cl.filter((i) => i.side === 1 || i.mode === 1).length;
+  // Keep the number of ions in (or heading to) the receiver equal to the target.
+  // Na⁺ is limited to NA_PER_CL of the Cl⁻ count: an idealised picture of the
+  // goal (a strongly co-ion-excluding membrane), explained on the page.
+  function fill(list, target, instant) {
+    let have = list.filter((i) => i.side === 1 || i.mode === 1).length;
     if (have > target) {
-      for (const i of cl) {
+      for (const i of list) {
         if (have <= target) break;
-        if (i.side === 1 || i.mode === 1) { i.side = -1; i.mode = 0; randomIn(-1, i.p); have--; }
+        if (i.side === 1 || i.mode === 1) { i.side = -1; i.mode = 0; i.onSeg = null; randomIn(-1, i.p); have--; }
       }
     }
     if (have < target) {
       const gap = target - have;
-      const pool = cl.filter((i) => i.side === -1 && i.mode === 0);
+      const pool = list.filter((i) => i.side === -1 && i.mode === 0);
       for (let k = 0; k < gap && k < pool.length; k++) {
         const i = pool[k];
         if (instant || gap > 25) { i.side = 1; i.mode = 0; randomIn(1, i.p); }
         else { i.mode = 1; i.path = pathAcross(i.p, 1); i.seg = 0; i.f = 0; }
       }
     }
-    if (instant) for (const i of na) if (i.mode) { i.mode = 0; randomIn(-1, i.p); }
+  }
+  function sync(instant) {
+    const target = Math.round(shownFrac(stateAt(t).cr) * N);
+    if (instant) for (const i of na) if (i.mode === 2) { i.mode = 0; i.onSeg = null; randomIn(-1, i.p); }
+    fill(cl, target, instant);
+    fill(na, Math.round(target * NA_PER_CL), instant);
     updateHud();
   }
 
@@ -393,7 +402,7 @@ function build(S, el, ambient) {
     if (running && probeClock <= 0) {
       probeClock = 0.22;
       const i = na[(Math.random() * N) | 0];
-      if (i.mode === 0) {
+      if (i.mode === 0 && i.side === -1) {
         i.mode = 2; i.path = pathBounce(i.p); i.seg = 0; i.f = 0;
         i.onSeg = (s) => { if (s === 2) flash(i.p); };
       }
@@ -406,6 +415,7 @@ function build(S, el, ambient) {
     }
     for (const i of na) {
       if (i.mode === 2) { if (followPath(i, dt, 3.2)) { i.mode = 0; i.onSeg = null; } }
+      else if (i.mode === 1) { if (followPath(i, dt, 2.6)) { i.mode = 0; i.side = 1; } }
       else wander(i, dt, swirl);
     }
     cl.forEach((i, k) => clMesh.setMatrixAt(k, M.makeTranslation(i.p.x, i.p.y, i.p.z)));
