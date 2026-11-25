@@ -311,3 +311,10 @@ figcaption { margin-top: 10px; font-size: 0.88rem; color: var(--text-2); max-wid
 
 /* Text under the simulation: part of the narrative, not a footnote. */
 .sim-text { max-width: var(--prose); margin: 18px 0 0; color: var(--text-2); }
+
+/* Phone-only: comfortable touch targets (nothing here applies on a PC-width screen) */
+@media (max-width: 600px) {
+  .langs a { padding: 9px 12px; }
+  .btn-sm { padding: 11px 16px; }
+  .scrub input { height: 36px; }
+}

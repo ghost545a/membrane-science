@@ -111,7 +111,9 @@ export function createStage(el, { fov = 35, position = [0, 4, 12], target = [0, 
   function loop(now) {
     raf = 0;
     if (!onScreen) return;
-    const raw = Math.min((now - last) / 1000, 0.5); // wall-clock step for timelines
+    // wall-clock step for timelines; never negative (the first frame after the
+    // stage scrolls into view can carry a timestamp slightly before `last`)
+    const raw = Math.min(Math.max((now - last) / 1000, 0), 0.5);
     const dt = Math.min(raw, 0.05);                 // capped step for motion
     last = now;
     for (const f of ticks) f(dt, now / 1000, raw);

@@ -214,10 +214,12 @@ function build() {
   const naList = ions(1), clList = ions(-1);
 
   // ---------------- Labels ----------------
-  const lab = (k, x, y, z) => addLabel(T[k] || k, (v) => v.set(x, y, z));
-  lab("river", -6, 3.0, -1.6); lab("sea", -6, 3.0, 1.6); lab("pump", -3.7, 1.25, -1.6);
-  lab("filter", -2.2, 1.8, 1.6); lab("stack", SX, 2.9, 0); lab("rinse", -0.9, 1.35, -2.7);
-  lab("load", 4.6, 1.95, 1.7); lab("outlet", 5.8, 2.3, -1.9);
+  const lab = (k, x, y, z, minor) => { const l = addLabel(T[k] || k, (v) => v.set(x, y, z)); l.minor = !!minor; return l; };
+  lab("river", -6, 3.0, -1.6); lab("sea", -6, 3.0, 1.6); lab("pump", -3.7, 1.25, -1.6, true);
+  lab("filter", -2.2, 1.8, 1.6, true); lab("stack", SX, 2.9, 0); lab("rinse", -0.9, 1.35, -2.7, true);
+  lab("load", 4.6, 1.95, 1.7); lab("outlet", 5.8, 2.3, -1.9, true);
+  // Phones: only the main labels, so they don't pile up on a small screen.
+  const narrow = matchMedia("(max-width: 600px)");
 
   // ---------------- Controls ----------------
   const bExplode = document.getElementById("rig-explode");
@@ -232,14 +234,22 @@ function build() {
   bExplode.onclick = () => { exploded = !exploded; gapTarget = exploded ? 0.23 : 0.13; setPressed(bExplode, exploded); };
   bIons.onclick = () => { showIons = !showIons; naI.visible = clI.visible = showIons; setPressed(bIons, showIons); };
   bPumps.onclick = () => { pumpsOn = !pumpsOn; setPressed(bPumps, pumpsOn); };
-  bLabels.onclick = () => { showLabels = !showLabels; labels.forEach((l) => (l.visible = showLabels)); setPressed(bLabels, showLabels); };
+  const applyLabels = () => labels.forEach((l) => (l.visible = showLabels && !(narrow.matches && l.minor)));
+  bLabels.onclick = () => { showLabels = !showLabels; applyLabels(); setPressed(bLabels, showLabels); };
+  narrow.addEventListener("change", applyLabels);
+  applyLabels();
+  // Touch screens can't hover: say "tap" instead.
+  if (matchMedia("(hover: none)").matches && T.hoverHint && T.tapHint) {
+    const intro = document.querySelector("#trial .intro");
+    if (intro) intro.textContent = intro.textContent.replace(T.hoverHint, T.tapHint);
+  }
 
   // ---------------- Hover tooltips ----------------
   const tip = document.createElement("div");
   tip.className = "tip"; tip.hidden = true;
   el.appendChild(tip);
   const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
-  S.renderer.domElement.addEventListener("pointermove", (e) => {
+  function showTip(e) {
     const r = el.getBoundingClientRect();
     ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ptr, camera);
@@ -250,10 +260,22 @@ function build() {
     tip.innerHTML = `<b>${title}</b>${tips[key]}`;
     tip.hidden = false;
     const x = e.clientX - r.left, y = e.clientY - r.top;
-    tip.style.left = Math.min(x + 14, r.width - 270) + "px";
-    tip.style.top = Math.min(y + 14, r.height - 110) + "px";
+    tip.style.left = Math.max(8, Math.min(x + 14, r.width - 270)) + "px";
+    tip.style.top = Math.max(8, Math.min(y + 14, r.height - 110)) + "px";
+  }
+  const cvs = S.renderer.domElement;
+  // Mouse: follow the pointer, as before.
+  cvs.addEventListener("pointermove", (e) => { if (e.pointerType === "mouse") showTip(e); });
+  cvs.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") tip.hidden = true; });
+  // Touch: a short tap on a part shows its explanation; a tap elsewhere hides it.
+  let down = null;
+  cvs.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") down = { x: e.clientX, y: e.clientY, t: e.timeStamp }; });
+  cvs.addEventListener("pointerup", (e) => {
+    if (e.pointerType === "mouse" || !down) return;
+    const tap = Math.hypot(e.clientX - down.x, e.clientY - down.y) < 10 && e.timeStamp - down.t < 500;
+    down = null;
+    if (tap) showTip(e); else tip.hidden = true;
   });
-  S.renderer.domElement.addEventListener("pointerleave", () => (tip.hidden = true));
 
   // ---------------- Animation ----------------
   const M = new THREE.Matrix4(), P = new THREE.Vector3();
